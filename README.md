@@ -1,6 +1,6 @@
 # acf18
 
-another certificate fomat, Similar to PEM OR DER
+another certificate fomat, similar to `PEM` OR `DER`
 
 ## OpenSSL
 
