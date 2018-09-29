@@ -1,4 +1,4 @@
-# go-ca
+# acf18
 
 another certificate fomat, Similar to PEM OR DER
 
