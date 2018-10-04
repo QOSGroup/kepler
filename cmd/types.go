@@ -14,10 +14,10 @@ type Serialization interface {
 }
 
 type Csr struct {
-	version   int8                  `json:"version"`
-	ca        bool                  `json:"ca"`
-	cn        string                `json:"cn"`
-	publicKey ed25519.PubKeyEd25519 `json:"public_key"`
+	Version   int8                  `json:"version"`
+	CA        bool                  `json:"ca"`
+	CN        string                `json:"cn"`
+	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
 }
 
 func (csr Csr) ToJson() []byte {
@@ -29,8 +29,8 @@ func (csr Csr) ToJson() []byte {
 }
 
 type Crt struct {
-	csr       Csr                         `json:"csr"`
-	signature [ed25519.SignatureSize]byte `json:"signature"`
+	CSR       Csr                         `json:"csr"`
+	Signature [ed25519.SignatureSize]byte `json:"signature"`
 }
 
 func (crt Crt) ToJson() []byte {

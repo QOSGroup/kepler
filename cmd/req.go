@@ -19,7 +19,9 @@ var ReqCmd *cobra.Command = &cobra.Command{
 
 func Req(cmd *cobra.Command, args []string) {
 	fmt.Println("priv key:", publicKeyFile)
-	fmt.Println("csr:", csr)
+
+	publicBytes := common.MustReadFile(publicKeyFile)
+	fmt.Println("public bytes:", publicBytes)
 
 	common.MustWriteFile(csrFile, csr.ToJson(), 0644)
 }
@@ -32,9 +34,9 @@ func init() {
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	// byeCmd.PersistentFlags().String("foo", "", "A help for foo")
-	ReqCmd.PersistentFlags().Int8Var(&csr.version, "version", 1, "Certificate version")
-	ReqCmd.Flags().BoolVar(&csr.ca, "ca", false, "Is it root certificate")
-	ReqCmd.PersistentFlags().StringVar(&csr.cn, "cn", "QSC", "Common name")
+	ReqCmd.PersistentFlags().Int8Var(&csr.Version, "version", 1, "Certificate version")
+	ReqCmd.Flags().BoolVar(&csr.CA, "ca", false, "Is it root certificate")
+	ReqCmd.PersistentFlags().StringVar(&csr.CN, "cn", "QSC", "Common name")
 	ReqCmd.PersistentFlags().StringVar(&publicKeyFile, "in-public-key", "key.pub", "public key filename")
 	ReqCmd.PersistentFlags().StringVar(&csrFile, "out-sign-req", "root.csr", "certificate signing request filename")
 
