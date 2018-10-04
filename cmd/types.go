@@ -15,6 +15,7 @@ var crt Crt
 
 type Serialization interface {
 	ToJson() []byte
+	ToBytes() []byte
 }
 
 type Csr struct {
@@ -32,6 +33,14 @@ func (csr Csr) ToJson() []byte {
 	return bz
 }
 
+func (csr Csr) ToBytes() []byte {
+	bz, err := cdc.MarshalBinaryBare(csr)
+	if err != nil {
+		panic(err)
+	}
+	return bz
+}
+
 type Crt struct {
 	CSR       Csr    `json:"csr"`
 	Signature []byte `json:"signature"`
@@ -39,6 +48,14 @@ type Crt struct {
 
 func (crt Crt) ToJson() []byte {
 	bz, err := cdc.MarshalJSON(crt)
+	if err != nil {
+		panic(err)
+	}
+	return bz
+}
+
+func (crt Crt) ToBytes() []byte {
+	bz, err := cdc.MarshalBinaryBare(crt)
 	if err != nil {
 		panic(err)
 	}
