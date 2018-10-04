@@ -18,7 +18,6 @@ func Req(cmd *cobra.Command, args []string) {
 	fmt.Println("public key:", publicKeyFile)
 
 	publicBytes := common.MustReadFile(publicKeyFile)
-	fmt.Println("public bytes:", publicBytes)
 
 	err := cdc.UnmarshalBinaryBare(publicBytes, &csr.PublicKey)
 	if err != nil {

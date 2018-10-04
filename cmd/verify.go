@@ -17,26 +17,19 @@ var VerifyCmd = &cobra.Command{
 
 func Verify(cmd *cobra.Command, args []string) {
 	crtBytes := common.MustReadFile(crtFile)
-	fmt.Println("csr bytes:", crtBytes)
 
 	err := cdc.UnmarshalBinaryBare(crtBytes, &crt)
 	if err != nil {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
-	fmt.Println("crt:", crt)
-
-	priKeyBytes := common.MustReadFile(privateKeyFile)
-	fmt.Println("key.pri bytes:", priKeyBytes)
 
 	pubKeyBytes := common.MustReadFile(publicKeyFile)
-	fmt.Println("key.pub bytes:", pubKeyBytes)
 
 	var pubKey ed25519.PubKeyEd25519
 	err = cdc.UnmarshalBinaryBare(pubKeyBytes, &pubKey)
 	if err != nil {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
-	fmt.Println("privKey:", pubKey)
 
 	ok := pubKey.VerifyBytes(crt.CSR.Bytes(), crt.Signature)
 	fmt.Println("verify result:", ok)
@@ -47,5 +40,4 @@ func init() {
 
 	ReqCmd.PersistentFlags().StringVar(&publicKeyFile, "in-key-pub", "key.pub", "public key")
 	ReqCmd.PersistentFlags().StringVar(&crtFile, "in-signed-ca", "my.crt", "certificate signed")
-
 }
