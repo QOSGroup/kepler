@@ -24,20 +24,12 @@ func Genkey(cmd *cobra.Command, args []string) {
 	common.MustWriteFile(publicKeyFile, pubKey.Bytes(), 0644)
 
 	fmt.Println("priv key:", privateKeyFile)
-	fmt.Println("pub key:", publicKeyFile)
+	fmt.Println("pub  key:", publicKeyFile)
 }
 
 func init() {
 	RootCmd.AddCommand(GenkeyCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
 	GenkeyCmd.PersistentFlags().StringVar(&privateKeyFile, "out-private-key", "key.pri", "private key filename")
 	GenkeyCmd.PersistentFlags().StringVar(&publicKeyFile, "out-public-key", "key.pub", "public key filename")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// helloCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
