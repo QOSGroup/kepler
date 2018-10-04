@@ -17,33 +17,32 @@ var SignCmd = &cobra.Command{
 }
 
 func Sign(cmd *cobra.Command, args []string) {
+	// Load CSR
 	csrBytes := common.MustReadFile(csrFile)
-	fmt.Println("csr bytes:", csrBytes)
 
-	err := cdc.UnmarshalJSON(csrBytes, &csr)
+	err := cdc.UnmarshalBinaryBare(csrBytes, &csr)
 	if err != nil {
-		common.Exit(fmt.Sprintf("cdc.UnmarshalJSON failed: %v", err))
+		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
-	fmt.Println("csr:", csr)
 
-	priKeyBytes := common.MustReadFile(privateKeyFile)
-	fmt.Println("key.pri bytes:", priKeyBytes)
-
+	// Load PrivKey
 	var privKey ed25519.PrivKeyEd25519
+	priKeyBytes := common.MustReadFile(privateKeyFile)
 	err = cdc.UnmarshalBinaryBare(priKeyBytes, &privKey)
 	if err != nil {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
-	fmt.Println("privKey:", privKey)
 
-	crt.Signature, err = privKey.Sign(csrBytes)
+	// Sign CSR
+	crt.CSR = csr
+	crt.Signature, err = privKey.Sign(csr.Bytes())
 	if err != nil {
 		common.Exit(fmt.Sprintf("privKey.Sign failed: %v", err))
 	}
 
-	common.MustWriteFile(crtFile, crt.ToJson(), 0644)
-
+	common.MustWriteFile(crtFile, crt.Bytes(), 0644)
 }
+
 func init() {
 	RootCmd.AddCommand(SignCmd)
 

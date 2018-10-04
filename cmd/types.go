@@ -14,8 +14,8 @@ var csr Csr
 var crt Crt
 
 type Serialization interface {
-	ToJson() []byte
-	ToBytes() []byte
+	//	ToJson() []byte
+	Bytes() []byte
 }
 
 type Csr struct {
@@ -25,15 +25,15 @@ type Csr struct {
 	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
 }
 
-func (csr Csr) ToJson() []byte {
-	bz, err := cdc.MarshalJSON(csr)
-	if err != nil {
-		panic(err)
-	}
-	return bz
-}
+//func (csr Csr) ToJson() []byte {
+//	bz, err := cdc.MarshalJSON(csr)
+//	if err != nil {
+//		panic(err)
+//	}
+//	return bz
+//}
 
-func (csr Csr) ToBytes() []byte {
+func (csr Csr) Bytes() []byte {
 	bz, err := cdc.MarshalBinaryBare(csr)
 	if err != nil {
 		panic(err)
@@ -46,15 +46,15 @@ type Crt struct {
 	Signature []byte `json:"signature"`
 }
 
-func (crt Crt) ToJson() []byte {
-	bz, err := cdc.MarshalJSON(crt)
-	if err != nil {
-		panic(err)
-	}
-	return bz
-}
+//func (crt Crt) ToJson() []byte {
+//	bz, err := cdc.MarshalJSON(crt)
+//	if err != nil {
+//		panic(err)
+//	}
+//	return bz
+//}
 
-func (crt Crt) ToBytes() []byte {
+func (crt Crt) Bytes() []byte {
 	bz, err := cdc.MarshalBinaryBare(crt)
 	if err != nil {
 		panic(err)

@@ -20,9 +20,9 @@ func Verify(cmd *cobra.Command, args []string) {
 	crtBytes := common.MustReadFile(crtFile)
 	fmt.Println("csr bytes:", crtBytes)
 
-	err := cdc.UnmarshalJSON(crtBytes, &crt)
+	err := cdc.UnmarshalBinaryBare(crtBytes, &crt)
 	if err != nil {
-		common.Exit(fmt.Sprintf("cdc.UnmarshalJSON failed: %v", err))
+		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
 	fmt.Println("crt:", crt)
 
@@ -39,7 +39,7 @@ func Verify(cmd *cobra.Command, args []string) {
 	}
 	fmt.Println("privKey:", pubKey)
 
-	ok := pubKey.VerifyBytes(crt.CSR.ToJson(), crt.Signature)
+	ok := pubKey.VerifyBytes(crt.CSR.Bytes(), crt.Signature)
 	fmt.Println("verify result:", ok)
 }
 
