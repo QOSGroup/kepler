@@ -1,6 +1,6 @@
 # kepler
 
-Another certificate fomat `BCM`, similar to `PEM` OR `DER`
+Another certificate format `BCM`, similar to `PEM` OR `DER`
 
 ## OpenSSL
 
@@ -12,7 +12,14 @@ Another certificate fomat `BCM`, similar to `PEM` OR `DER`
 
   Privacy Enhanced Mail (PEM) is a format with goal to embed binary content into a content typed 7bits ASCII format.
   
-  
- ## TODO
+## The file suffix
+
+* `key.pri`: Private Key
+* `key.pub`: Public Key
+* `root.csr`: Certificate Request
+* `root.crt`: Root Certificate
+
+
+## TODO
  
  - [ ] Conversion tools
