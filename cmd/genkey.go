@@ -8,15 +8,12 @@ import (
 	"github.com/tendermint/tendermint/libs/common"
 )
 
-var privateKeyFile string
-var publicKeyFile string
-
 // helloCmd represents the hello command
 var GenkeyCmd = &cobra.Command{
 	Use:   "genkey",
 	Short: "Generating public/private ed25519 key pair",
 	Long:  `Generating public/private ed25519 key pair`,
-	Run: Genkey,
+	Run:   Genkey,
 }
 
 func Genkey(cmd *cobra.Command, args []string) {
@@ -37,8 +34,8 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	GenkeyCmd.PersistentFlags().StringVar(&privateKeyFile,"out-private-key", "key.pri", "private key filename")
-	GenkeyCmd.PersistentFlags().StringVar(&publicKeyFile,"out-public-key", "key.pub", "public key filename")
+	GenkeyCmd.PersistentFlags().StringVar(&privateKeyFile, "out-private-key", "key.pri", "private key filename")
+	GenkeyCmd.PersistentFlags().StringVar(&publicKeyFile, "out-public-key", "key.pub", "public key filename")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
