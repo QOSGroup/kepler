@@ -8,7 +8,6 @@ import (
 	"github.com/tendermint/tendermint/libs/common"
 )
 
-// helloCmd represents the hello command
 var GenkeyCmd = &cobra.Command{
 	Use:   "genkey",
 	Short: "Generating public/private ed25519 key pair",

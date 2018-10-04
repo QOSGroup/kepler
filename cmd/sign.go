@@ -8,7 +8,6 @@ import (
 	"github.com/tendermint/tendermint/libs/common"
 )
 
-// byeCmd represents the bye command
 var SignCmd = &cobra.Command{
 	Use:   "sign",
 	Short: "Sign certificate",
