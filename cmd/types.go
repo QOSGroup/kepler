@@ -2,6 +2,7 @@ package cmd
 
 import (
 	amino "github.com/tendermint/go-amino"
+	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 )
 
@@ -55,4 +56,12 @@ func init() {
 		CsrAminoRoute, nil)
 	cdc.RegisterConcrete(Crt{},
 		CrtAminoRoute, nil)
+
+	cdc.RegisterInterface((*crypto.PubKey)(nil), nil)
+	cdc.RegisterConcrete(ed25519.PubKeyEd25519{},
+		ed25519.PubKeyAminoRoute, nil)
+
+	cdc.RegisterInterface((*crypto.PrivKey)(nil), nil)
+	cdc.RegisterConcrete(ed25519.PrivKeyEd25519{},
+		ed25519.PrivKeyAminoRoute, nil)
 }

@@ -18,10 +18,15 @@ var ReqCmd *cobra.Command = &cobra.Command{
 }
 
 func Req(cmd *cobra.Command, args []string) {
-	fmt.Println("priv key:", publicKeyFile)
+	fmt.Println("public key:", publicKeyFile)
 
 	publicBytes := common.MustReadFile(publicKeyFile)
 	fmt.Println("public bytes:", publicBytes)
+
+	err := cdc.UnmarshalBinaryBare(publicBytes, &csr.PublicKey)
+	if err != nil {
+		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
+	}
 
 	common.MustWriteFile(csrFile, csr.ToJson(), 0644)
 }
