@@ -24,3 +24,6 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
  
  - [ ] Conversion tools, pem and der to bcm 
  - [ ] Http RPC
+ - [ ] Cobra do not use global var
+ - [ ] Add verbose mode
+ - [ ] Add test case
