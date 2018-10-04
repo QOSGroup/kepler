@@ -9,6 +9,9 @@ import (
 var privateKeyFile string
 var publicKeyFile string
 var csrFile string
+var crtFile string
+var csr Csr
+var crt Crt
 
 type Serialization interface {
 	ToJson() []byte
@@ -30,8 +33,8 @@ func (csr Csr) ToJson() []byte {
 }
 
 type Crt struct {
-	CSR       Csr                         `json:"csr"`
-	Signature [ed25519.SignatureSize]byte `json:"signature"`
+	CSR       Csr    `json:"csr"`
+	Signature []byte `json:"signature"`
 }
 
 func (crt Crt) ToJson() []byte {
