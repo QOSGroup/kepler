@@ -7,8 +7,6 @@ import (
 	"github.com/tendermint/tendermint/libs/common"
 )
 
-var csr Csr
-
 // byeCmd represents the bye command
 var ReqCmd *cobra.Command = &cobra.Command{
 	Use:   "req",
@@ -43,7 +41,7 @@ func init() {
 	ReqCmd.Flags().BoolVar(&csr.CA, "ca", false, "Is it root certificate")
 	ReqCmd.PersistentFlags().StringVar(&csr.CN, "cn", "QSC", "Common name")
 	ReqCmd.PersistentFlags().StringVar(&publicKeyFile, "in-public-key", "key.pub", "public key filename")
-	ReqCmd.PersistentFlags().StringVar(&csrFile, "out-sign-req", "root.csr", "certificate signing request filename")
+	ReqCmd.PersistentFlags().StringVar(&csrFile, "out-sign-req", "my.csr", "certificate signing request filename")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
