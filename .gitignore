@@ -15,3 +15,8 @@
 *.key
 *.bcm
 kepler
+
+*.pri
+*.pub
+*.crt
+*.csr
