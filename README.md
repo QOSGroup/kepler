@@ -22,4 +22,5 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
 
 ## TODO
  
- - [ ] Conversion tools
+ - [ ] Conversion tools, pem and der to bcm 
+ - [ ] Http RPC
