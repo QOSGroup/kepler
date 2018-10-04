@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 	"github.com/tendermint/tendermint/libs/common"
@@ -36,8 +37,8 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	GenkeyCmd.PersistentFlags().StringVar(&privateKeyFile,"out-private-key", "private.key", "private key filename")
-	GenkeyCmd.PersistentFlags().StringVar(&publicKeyFile,"out-public-key", "public.key", "public key filename")
+	GenkeyCmd.PersistentFlags().StringVar(&privateKeyFile,"out-private-key", "key.pri", "private key filename")
+	GenkeyCmd.PersistentFlags().StringVar(&publicKeyFile,"out-public-key", "key.pub", "public key filename")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
