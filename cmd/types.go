@@ -16,7 +16,7 @@ var crt Crt
 var Verbose bool
 
 type Serialization interface {
-	//	ToJson() []byte
+	Json() []byte
 	Bytes() []byte
 }
 
@@ -27,13 +27,13 @@ type Csr struct {
 	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
 }
 
-//func (csr Csr) ToJson() []byte {
-//	bz, err := cdc.MarshalJSON(csr)
-//	if err != nil {
-//		panic(err)
-//	}
-//	return bz
-//}
+func (csr Csr) Json() []byte {
+	bz, err := cdc.MarshalJSON(csr)
+	if err != nil {
+		panic(err)
+	}
+	return bz
+}
 
 func (csr Csr) Bytes() []byte {
 	bz, err := cdc.MarshalBinaryBare(csr)
@@ -48,13 +48,13 @@ type Crt struct {
 	Signature []byte `json:"signature"`
 }
 
-//func (crt Crt) ToJson() []byte {
-//	bz, err := cdc.MarshalJSON(crt)
-//	if err != nil {
-//		panic(err)
-//	}
-//	return bz
-//}
+func (crt Crt) Json() []byte {
+	bz, err := cdc.MarshalJSON(crt)
+	if err != nil {
+		panic(err)
+	}
+	return bz
+}
 
 func (crt Crt) Bytes() []byte {
 	bz, err := cdc.MarshalBinaryBare(crt)
