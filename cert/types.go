@@ -49,6 +49,7 @@ var _ Serialization = Certificate{}
 
 type Certificate struct {
 	CSR       CertificateSigningRequest `json:"csr"`
+	Issuer    ed25519.PubKeyEd25519     `json:"issuer"`
 	Signature []byte                    `json:"signature"`
 }
 

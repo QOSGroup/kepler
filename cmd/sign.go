@@ -47,10 +47,19 @@ func sign(cmd *cobra.Command, args []string) {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
 
+	// Load PubKey
+	var pubKey ed25519.PubKeyEd25519
+	pubKeyBytes := common.MustReadFile(publicKeyFile)
+	err = cdc.UnmarshalBinaryBare(pubKeyBytes, &pubKey)
+	if err != nil {
+		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
+	}
+
 	// Sign CSR
 	csr.NotBefore = time.Now()
 	csr.NotAfter = time.Now().AddDate(1, 0, 0)
 	crt.CSR = csr
+	crt.Issuer = pubKey
 	crt.Signature, err = privKey.Sign(csr.Bytes(cdc))
 	if err != nil {
 		common.Exit(fmt.Sprintf("privKey.Sign failed: %v", err))
@@ -63,7 +72,8 @@ func init() {
 	RootCmd.AddCommand(SignCmd)
 
 	ReqCmd.PersistentFlags().StringVar(&csrFile, "in-sign-req", "my.csr", "certificate signing request filename")
-	ReqCmd.PersistentFlags().StringVar(&privateKeyFile, "in-key-pri", "key.pri", "private key")
 	ReqCmd.PersistentFlags().StringVar(&crtFile, "out-signed-ca", "my.crt", "certificate signed")
+	ReqCmd.PersistentFlags().StringVar(&privateKeyFile, "in-key-pri", "key.pri", "private key")
+	ReqCmd.PersistentFlags().StringVar(&publicKeyFile, "in-key-pub", "key.pub", "public key")
 
 }
