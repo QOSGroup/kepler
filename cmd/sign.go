@@ -16,6 +16,20 @@ var SignCmd = &cobra.Command{
 }
 
 func sign(cmd *cobra.Command, args []string) {
+	if verbose {
+		if csrFile != "" {
+			fmt.Println("csr file:", csrFile)
+		}
+
+		if crtFile != "" {
+			fmt.Println("crt file:", crtFile)
+		}
+
+		if privateKeyFile != "" {
+			fmt.Println("private key:", privateKeyFile)
+		}
+	}
+
 	// Load CSR
 	csrBytes := common.MustReadFile(csrFile)
 

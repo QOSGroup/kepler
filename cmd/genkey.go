@@ -16,21 +16,21 @@ var GenkeyCmd = &cobra.Command{
 }
 
 func genkey(cmd *cobra.Command, args []string) {
+	if verbose {
+		fmt.Println("private key file:", privateKeyFile)
+		fmt.Println("public key file:", publicKeyFile)
+	}
+
 	privKey := ed25519.GenPrivKey()
 	pubKey := privKey.PubKey()
 
 	common.MustWriteFile(privateKeyFile, privKey.Bytes(), 0644)
 	common.MustWriteFile(publicKeyFile, pubKey.Bytes(), 0644)
-
-	if verbose {
-		fmt.Println("priv key:", privateKeyFile)
-		fmt.Println("pub  key:", publicKeyFile)
-	}
 }
 
 func init() {
 	RootCmd.AddCommand(GenkeyCmd)
 
-	GenkeyCmd.PersistentFlags().StringVar(&privateKeyFile, "out-private-key", "key.pri", "private key filename")
-	GenkeyCmd.PersistentFlags().StringVar(&publicKeyFile, "out-public-key", "key.pub", "public key filename")
+	GenkeyCmd.PersistentFlags().StringVar(&privateKeyFile, "out-private-key", "key.pri", "private key file")
+	GenkeyCmd.PersistentFlags().StringVar(&publicKeyFile, "out-public-key", "key.pub", "public key file")
 }

@@ -16,6 +16,14 @@ var VerifyCmd = &cobra.Command{
 }
 
 func verify(cmd *cobra.Command, args []string) {
+	if verbose {
+		if publicKeyFile != "" {
+			fmt.Println("public key:", publicKeyFile)
+		}
+		if crtFile != "" {
+			fmt.Println("crt File:", crtFile)
+		}
+	}
 	crtBytes := common.MustReadFile(crtFile)
 
 	err := cdc.UnmarshalBinaryBare(crtBytes, &crt)

@@ -67,8 +67,8 @@ func (crt Certificate) Bytes() []byte {
 }
 
 const (
-	CsrAminoRoute = "ed25519/csr"
-	CrtAminoRoute = "ed25519/crt"
+	CsrAminoRoute = "certificate/csr"
+	CrtAminoRoute = "certificate/crt"
 )
 
 var cdc = amino.NewCodec()

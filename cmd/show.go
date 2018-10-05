@@ -20,6 +20,16 @@ func show(cmd *cobra.Command, args []string) {
 		return
 	}
 
+	if verbose {
+		if csrFile != "" {
+			fmt.Println("csr file:", csrFile)
+		}
+
+		if crtFile != "" {
+			fmt.Println("crt file:", crtFile)
+		}
+	}
+
 	// READ CSR
 	if csrFile != "" {
 		csrBytes := common.MustReadFile(csrFile)
