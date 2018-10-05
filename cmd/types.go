@@ -25,7 +25,7 @@ type CertificateSigningRequest struct {
 	Version   int8                  `json:"version"`
 	CA        bool                  `json:"ca"`
 	CN        string                `json:"cn"`
-	Banker    bool                  `json:"banker"`
+	IsBanker  bool                  `json:"is_banker"`
 	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
 }
 
