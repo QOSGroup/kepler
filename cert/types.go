@@ -1,6 +1,8 @@
 package cert
 
 import (
+	"time"
+
 	amino "github.com/tendermint/go-amino"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 )
@@ -22,6 +24,8 @@ type CertificateSigningRequest struct {
 	IsCa      bool                  `json:"is_ca"`
 	CN        string                `json:"cn"`
 	IsBanker  bool                  `json:"is_banker"`
+	NotBefore time.Time             `json:"not_before"`
+	NotAfter  time.Time             `json:"not_after"`
 	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
 }
 

@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/crypto/ed25519"
@@ -47,6 +48,8 @@ func sign(cmd *cobra.Command, args []string) {
 	}
 
 	// Sign CSR
+	csr.NotBefore = time.Now()
+	csr.NotAfter = time.Now().AddDate(1, 0, 0)
 	crt.CSR = csr
 	crt.Signature, err = privKey.Sign(csr.Bytes(cdc))
 	if err != nil {
