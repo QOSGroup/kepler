@@ -15,7 +15,7 @@ var ReqCmd *cobra.Command = &cobra.Command{
 }
 
 func req(cmd *cobra.Command, args []string) {
-	if Verbose {
+	if verbose {
 		fmt.Println("public key:", publicKeyFile)
 	}
 

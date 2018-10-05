@@ -6,14 +6,15 @@ import (
 	"github.com/tendermint/tendermint/crypto/ed25519"
 )
 
-var privateKeyFile string
-var publicKeyFile string
-var csrFile string
-var crtFile string
-var csr CertificateSigningRequest
-var crt Certificate
-
-var Verbose bool
+var (
+	privateKeyFile string
+	publicKeyFile  string
+	csrFile        string
+	crtFile        string
+	csr            CertificateSigningRequest
+	crt            Certificate
+	verbose        bool
+)
 
 type Serialization interface {
 	Json() []byte
