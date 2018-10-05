@@ -1,0 +1,32 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+        Signature Algorithm: ED25519
+        Issuer: C = CN, ST = BeiJing, L = BeiJing, O = Default Company Ltd, OU = QOS
+        Validity
+            Not Before: Sep 28 15:00:14 2018 GMT
+            Not After : Sep 28 15:00:14 2019 GMT
+        Subject: C = CN, ST = BJ, O = Company.Ltd, OU = QOS, CN = QOS01, emailAddress = owner@QOS01.QOS
+        Subject Public Key Info:
+            Public Key Algorithm: ED25519
+                ED25519 Public-Key:
+                pub:
+                    7d:fe:24:bf:48:5a:5e:c1:e1:a2:ba:25:b4:3c:96:
+                    82:32:76:d8:98:ae:85:ca:bd:11:5f:06:c3:b2:b4:
+                    4b:ff
+        X509v3 extensions:
+            X509v3 Basic Constraints:
+                CA:FALSE
+            Netscape Comment:
+                OpenSSL Generated Certificate
+            X509v3 Subject Key Identifier:
+                C7:07:66:BF:55:92:71:EE:99:1A:E0:D5:07:D0:37:CC:72:71:F1:F4
+            X509v3 Authority Key Identifier:
+                keyid:00:C3:11:5B:0C:A1:C3:83:6C:46:93:89:8F:40:93:C7:3F:1F:CA:D9
+
+    Signature Algorithm: ED25519
+         71:e3:46:cd:d6:83:e6:a8:b1:39:cc:9f:c4:fe:0c:da:12:0d:
+         57:3c:46:a0:92:b6:d5:49:e6:a1:3f:86:65:d9:95:7e:67:11:
+         49:1c:a5:f8:69:a6:15:a0:d7:3a:67:91:4f:cc:fd:7b:f2:45:
+         3b:7c:1a:09:92:a1:38:be:54:08
