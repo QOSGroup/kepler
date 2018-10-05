@@ -10,8 +10,8 @@ var privateKeyFile string
 var publicKeyFile string
 var csrFile string
 var crtFile string
-var csr Csr
-var crt Crt
+var csr CertificateSigningRequest
+var crt Certificate
 
 var Verbose bool
 
@@ -20,7 +20,7 @@ type Serialization interface {
 	Bytes() []byte
 }
 
-type Csr struct {
+type CertificateSigningRequest struct {
 	Version   int8                  `json:"version"`
 	CA        bool                  `json:"ca"`
 	CN        string                `json:"cn"`
@@ -28,7 +28,7 @@ type Csr struct {
 	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
 }
 
-func (csr Csr) Json() []byte {
+func (csr CertificateSigningRequest) Json() []byte {
 	bz, err := cdc.MarshalJSON(csr)
 	if err != nil {
 		panic(err)
@@ -36,7 +36,7 @@ func (csr Csr) Json() []byte {
 	return bz
 }
 
-func (csr Csr) Bytes() []byte {
+func (csr CertificateSigningRequest) Bytes() []byte {
 	bz, err := cdc.MarshalBinaryBare(csr)
 	if err != nil {
 		panic(err)
@@ -44,12 +44,12 @@ func (csr Csr) Bytes() []byte {
 	return bz
 }
 
-type Crt struct {
-	CSR       Csr    `json:"csr"`
-	Signature []byte `json:"signature"`
+type Certificate struct {
+	CSR       CertificateSigningRequest `json:"csr"`
+	Signature []byte                    `json:"signature"`
 }
 
-func (crt Crt) Json() []byte {
+func (crt Certificate) Json() []byte {
 	bz, err := cdc.MarshalJSON(crt)
 	if err != nil {
 		panic(err)
@@ -57,7 +57,7 @@ func (crt Crt) Json() []byte {
 	return bz
 }
 
-func (crt Crt) Bytes() []byte {
+func (crt Certificate) Bytes() []byte {
 	bz, err := cdc.MarshalBinaryBare(crt)
 	if err != nil {
 		panic(err)
@@ -74,9 +74,9 @@ var cdc = amino.NewCodec()
 
 func init() {
 	cdc.RegisterInterface((*Serialization)(nil), nil)
-	cdc.RegisterConcrete(Csr{},
+	cdc.RegisterConcrete(CertificateSigningRequest{},
 		CsrAminoRoute, nil)
-	cdc.RegisterConcrete(Crt{},
+	cdc.RegisterConcrete(Certificate{},
 		CrtAminoRoute, nil)
 
 	cdc.RegisterInterface((*crypto.PubKey)(nil), nil)
