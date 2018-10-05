@@ -16,7 +16,7 @@ var ShowCmd = &cobra.Command{
 
 func Show(cmd *cobra.Command, args []string) {
 	if csrFile == "" || crtFile == "" {
-		fmt.Println("please set csr file or crt file")
+		fmt.Println("no files to show")
 		return
 	}
 
