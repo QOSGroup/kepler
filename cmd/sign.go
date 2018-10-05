@@ -56,10 +56,10 @@ func sign(cmd *cobra.Command, args []string) {
 	}
 
 	// Sign CSR
+	csr.Issuer = pubKey
 	csr.NotBefore = time.Now()
 	csr.NotAfter = time.Now().AddDate(1, 0, 0)
 	crt.CSR = csr
-	crt.Issuer = pubKey
 	crt.Signature, err = privKey.Sign(csr.Bytes(cdc))
 	if err != nil {
 		common.Exit(fmt.Sprintf("privKey.Sign failed: %v", err))

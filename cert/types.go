@@ -27,6 +27,7 @@ type CertificateSigningRequest struct {
 	NotBefore time.Time             `json:"not_before"`
 	NotAfter  time.Time             `json:"not_after"`
 	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
+	Issuer    ed25519.PubKeyEd25519 `json:"issuer"`
 }
 
 func (csr CertificateSigningRequest) Json(cdc *amino.Codec) []byte {
@@ -49,7 +50,6 @@ var _ Serialization = Certificate{}
 
 type Certificate struct {
 	CSR       CertificateSigningRequest `json:"csr"`
-	Issuer    ed25519.PubKeyEd25519     `json:"issuer"`
 	Signature []byte                    `json:"signature"`
 }
 
