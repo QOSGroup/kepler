@@ -12,10 +12,10 @@ var GenkeyCmd = &cobra.Command{
 	Use:   "genkey",
 	Short: "Generating public/private ed25519 key pair",
 	Long:  `Generating public/private ed25519 key pair`,
-	Run:   Genkey,
+	Run:   genkey,
 }
 
-func Genkey(cmd *cobra.Command, args []string) {
+func genkey(cmd *cobra.Command, args []string) {
 	privKey := ed25519.GenPrivKey()
 	pubKey := privKey.PubKey()
 

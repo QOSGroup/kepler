@@ -11,10 +11,10 @@ var ReqCmd *cobra.Command = &cobra.Command{
 	Use:   "req",
 	Short: "Certificate Signing Request",
 	Long:  `Certificate Signing Request`,
-	Run:   Req,
+	Run:   req,
 }
 
-func Req(cmd *cobra.Command, args []string) {
+func req(cmd *cobra.Command, args []string) {
 	if Verbose {
 		fmt.Println("public key:", publicKeyFile)
 	}

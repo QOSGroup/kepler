@@ -12,10 +12,10 @@ var SignCmd = &cobra.Command{
 	Use:   "sign",
 	Short: "Sign certificate",
 	Long:  `Sign certificate`,
-	Run:   Sign,
+	Run:   sign,
 }
 
-func Sign(cmd *cobra.Command, args []string) {
+func sign(cmd *cobra.Command, args []string) {
 	// Load CSR
 	csrBytes := common.MustReadFile(csrFile)
 

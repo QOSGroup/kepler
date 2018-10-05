@@ -12,10 +12,10 @@ var VerifyCmd = &cobra.Command{
 	Use:   "verify",
 	Short: "verify certificate signature",
 	Long:  `verify certificate signature`,
-	Run:   Verify,
+	Run:   verify,
 }
 
-func Verify(cmd *cobra.Command, args []string) {
+func verify(cmd *cobra.Command, args []string) {
 	crtBytes := common.MustReadFile(crtFile)
 
 	err := cdc.UnmarshalBinaryBare(crtBytes, &crt)

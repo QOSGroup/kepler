@@ -11,10 +11,10 @@ var ShowCmd = &cobra.Command{
 	Use:   "show",
 	Short: "display csr or crt contents",
 	Long:  `display csr or crt contents`,
-	Run:   Show,
+	Run:   show,
 }
 
-func Show(cmd *cobra.Command, args []string) {
+func show(cmd *cobra.Command, args []string) {
 	if csrFile == "" || crtFile == "" {
 		fmt.Println("no files to show")
 		return
