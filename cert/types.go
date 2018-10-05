@@ -11,9 +11,11 @@ const (
 )
 
 type Serialization interface {
-	Json() []byte
-	Bytes() []byte
+	Json(cdc *amino.Codec) []byte
+	Bytes(cdc *amino.Codec) []byte
 }
+
+var _ Serialization = CertificateSigningRequest{}
 
 type CertificateSigningRequest struct {
 	Version   int8                  `json:"version"`
@@ -38,6 +40,8 @@ func (csr CertificateSigningRequest) Bytes(cdc *amino.Codec) []byte {
 	}
 	return bz
 }
+
+var _ Serialization = Certificate{}
 
 type Certificate struct {
 	CSR       CertificateSigningRequest `json:"csr"`
