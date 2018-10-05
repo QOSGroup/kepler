@@ -31,7 +31,7 @@ func req(cmd *cobra.Command, args []string) {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
 
-	common.MustWriteFile(csrFile, csr.Bytes(), 0644)
+	common.MustWriteFile(csrFile, csr.Bytes(cdc), 0644)
 }
 
 func init() {

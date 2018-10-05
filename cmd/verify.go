@@ -39,7 +39,7 @@ func verify(cmd *cobra.Command, args []string) {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
 
-	ok := pubKey.VerifyBytes(crt.CSR.Bytes(), crt.Signature)
+	ok := pubKey.VerifyBytes(crt.CSR.Bytes(cdc), crt.Signature)
 	fmt.Println("verify result:", ok)
 }
 

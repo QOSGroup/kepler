@@ -48,12 +48,12 @@ func sign(cmd *cobra.Command, args []string) {
 
 	// Sign CSR
 	crt.CSR = csr
-	crt.Signature, err = privKey.Sign(csr.Bytes())
+	crt.Signature, err = privKey.Sign(csr.Bytes(cdc))
 	if err != nil {
 		common.Exit(fmt.Sprintf("privKey.Sign failed: %v", err))
 	}
 
-	common.MustWriteFile(crtFile, crt.Bytes(), 0644)
+	common.MustWriteFile(crtFile, crt.Bytes(cdc), 0644)
 }
 
 func init() {

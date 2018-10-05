@@ -39,7 +39,7 @@ func show(cmd *cobra.Command, args []string) {
 			common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 		}
 
-		fmt.Println("csrFile:", string(csr.Json()))
+		fmt.Println("csrFile:", string(csr.Json(cdc)))
 	}
 
 	// READ CRT
@@ -51,7 +51,7 @@ func show(cmd *cobra.Command, args []string) {
 			common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 		}
 
-		fmt.Println("crtFile:", string(crt.Json()))
+		fmt.Println("crtFile:", string(crt.Json(cdc)))
 	}
 
 }

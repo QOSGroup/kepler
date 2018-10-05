@@ -4,10 +4,22 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/kepler/cert"
 	"github.com/spf13/cobra"
+	amino "github.com/tendermint/go-amino"
+	"github.com/tendermint/tendermint/crypto"
+	"github.com/tendermint/tendermint/crypto/ed25519"
 )
 
-var cfgFile string
+var (
+	privateKeyFile string
+	publicKeyFile  string
+	csrFile        string
+	crtFile        string
+	csr            cert.CertificateSigningRequest
+	crt            cert.Certificate
+	verbose        bool
+)
 
 var RootCmd = &cobra.Command{
 	Use:   "kepler",
@@ -23,6 +35,22 @@ func Execute() {
 	}
 }
 
+var cdc = amino.NewCodec()
+
 func init() {
+	cdc.RegisterInterface((*cert.Serialization)(nil), nil)
+	cdc.RegisterConcrete(cert.CertificateSigningRequest{},
+		cert.CsrAminoRoute, nil)
+	cdc.RegisterConcrete(cert.Certificate{},
+		cert.CrtAminoRoute, nil)
+
+	cdc.RegisterInterface((*crypto.PubKey)(nil), nil)
+	cdc.RegisterConcrete(ed25519.PubKeyEd25519{},
+		ed25519.PubKeyAminoRoute, nil)
+
+	cdc.RegisterInterface((*crypto.PrivKey)(nil), nil)
+	cdc.RegisterConcrete(ed25519.PrivKeyEd25519{},
+		ed25519.PrivKeyAminoRoute, nil)
+
 	RootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "verbose output")
 }
