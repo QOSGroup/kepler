@@ -16,3 +16,4 @@ $PWD/$CMD genkey
 $PWD/$CMD req
 $PWD/$CMD sign
 $PWD/$CMD verify
+$PWD/$CMD show
