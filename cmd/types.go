@@ -13,6 +13,8 @@ var crtFile string
 var csr Csr
 var crt Crt
 
+var Verbose bool
+
 type Serialization interface {
 	//	ToJson() []byte
 	Bytes() []byte

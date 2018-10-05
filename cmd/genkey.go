@@ -22,8 +22,10 @@ func Genkey(cmd *cobra.Command, args []string) {
 	common.MustWriteFile(privateKeyFile, privKey.Bytes(), 0644)
 	common.MustWriteFile(publicKeyFile, pubKey.Bytes(), 0644)
 
-	fmt.Println("priv key:", privateKeyFile)
-	fmt.Println("pub  key:", publicKeyFile)
+	if Verbose {
+		fmt.Println("priv key:", privateKeyFile)
+		fmt.Println("pub  key:", publicKeyFile)
+	}
 }
 
 func init() {

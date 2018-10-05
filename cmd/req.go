@@ -15,7 +15,9 @@ var ReqCmd *cobra.Command = &cobra.Command{
 }
 
 func Req(cmd *cobra.Command, args []string) {
-	fmt.Println("public key:", publicKeyFile)
+	if Verbose {
+		fmt.Println("public key:", publicKeyFile)
+	}
 
 	publicBytes := common.MustReadFile(publicKeyFile)
 
