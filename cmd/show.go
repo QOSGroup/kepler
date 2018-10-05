@@ -49,7 +49,7 @@ func Show(cmd *cobra.Command, args []string) {
 func init() {
 	RootCmd.AddCommand(ShowCmd)
 
-	ReqCmd.PersistentFlags().StringVar(&csrFile, "in-csr", "", "certificate signing request filename")
-	ReqCmd.PersistentFlags().StringVar(&crtFile, "in-cst", "", "certificate signed")
+	ShowCmd.PersistentFlags().StringVar(&csrFile, "in-csr-file", "", "certificate signing request")
+	ShowCmd.PersistentFlags().StringVar(&crtFile, "in-crt-file", "", "certificate signed")
 
 }
