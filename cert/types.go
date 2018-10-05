@@ -19,7 +19,7 @@ var _ Serialization = CertificateSigningRequest{}
 
 type CertificateSigningRequest struct {
 	Version   int8                  `json:"version"`
-	CA        bool                  `json:"ca"`
+	IsCa      bool                  `json:"is_ca"`
 	CN        string                `json:"cn"`
 	IsBanker  bool                  `json:"is_banker"`
 	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
