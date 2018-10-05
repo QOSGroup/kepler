@@ -74,7 +74,6 @@ var cdc = amino.NewCodec()
 
 func init() {
 	cdc.RegisterInterface((*Serialization)(nil), nil)
-
 	cdc.RegisterConcrete(Csr{},
 		CsrAminoRoute, nil)
 	cdc.RegisterConcrete(Crt{},
