@@ -2,6 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"time"
+
+	"github.com/kepler/cert"
 
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/libs/common"
@@ -19,15 +22,41 @@ func verify(cmd *cobra.Command, args []string) {
 		if crtFile != "" {
 			fmt.Println("crt File:", crtFile)
 		}
+		if trustCrtsFile != "" {
+			fmt.Println("trust crts File:", trustCrtsFile)
+		}
 	}
-	crtBytes := common.MustReadFile(crtFile)
 
-	err := cdc.UnmarshalBinaryBare(crtBytes, &crt)
+	var trustCrts cert.TrustCrts
+	trustCrtsBytes := common.MustReadFile(trustCrtsFile)
+	err := cdc.UnmarshalJSON(trustCrtsBytes, &trustCrts)
 	if err != nil {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
 
-	ok := crt.CSR.Issuer.VerifyBytes(crt.CSR.Bytes(cdc), crt.Signature)
+	crtBytes := common.MustReadFile(crtFile)
+	err = cdc.UnmarshalBinaryBare(crtBytes, &crt)
+	if err != nil {
+		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
+	}
+
+	// Check issuer
+	ok := false
+	for _, value := range trustCrts.PublicKeys {
+		if value.Equals(crt.CSR.Issuer) {
+			ok = crt.CSR.Issuer.VerifyBytes(crt.CSR.Bytes(cdc), crt.Signature)
+			break
+		}
+	}
+
+	// Check timestamp
+	now := time.Now().Unix()
+	if now <= crt.CSR.NotBefore.Unix() || now >= crt.CSR.NotAfter.Unix() {
+		ok = false
+	}
+
+	// TODO: add publicKey to trustCrts if crt.CSR.IsCa is true
+
 	fmt.Println("verify result:", ok)
 }
 
@@ -35,4 +64,5 @@ func init() {
 	RootCmd.AddCommand(VerifyCmd)
 
 	VerifyCmd.PersistentFlags().StringVar(&crtFile, "in-signed-ca", "my.crt", "certificate signed")
+	VerifyCmd.PersistentFlags().StringVar(&trustCrtsFile, "in-trust-crts", "trust.crts", "trust certificate list")
 }

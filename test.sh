@@ -15,11 +15,11 @@ go build
 
 # ROOT
 $PWD/$CMD genkey
+$PWD/$CMD trust --in-public-key key.pub --out-trust-crts trust.crts
 $PWD/$CMD req
 $PWD/$CMD sign
 $PWD/$CMD verify
 $PWD/$CMD show
-$PWD/$CMD trust --in-public-key key.pub --out-trust-crts trust.crts
 
 
 # QOS 
