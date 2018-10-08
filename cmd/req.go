@@ -37,7 +37,6 @@ func req(cmd *cobra.Command, args []string) {
 func init() {
 	RootCmd.AddCommand(ReqCmd)
 
-	ReqCmd.PersistentFlags().Int8Var(&csr.Version, "version", 1, "Certificate version")
 	ReqCmd.Flags().BoolVar(&csr.IsCa, "is-ca", false, "Is it root certificate")
 	ReqCmd.PersistentFlags().StringVar(&csr.Subj.CN, "cn", "CA", "Common name")
 	ReqCmd.PersistentFlags().BoolVar(&csr.IsBanker, "is-banker", false, "Additional attributes")

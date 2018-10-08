@@ -25,7 +25,6 @@ type Serialization interface {
 var _ Serialization = CertificateSigningRequest{}
 
 type CertificateSigningRequest struct {
-	Version   int8                  `json:"version"`
 	IsCa      bool                  `json:"is_ca"`
 	Subj      Subject               `json:"subj"`
 	IsBanker  bool                  `json:"is_banker"`
