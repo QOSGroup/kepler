@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/kepler/cert"
+	"github.com/QOSGroup/kepler/cert"
 
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/libs/common"

@@ -5,7 +5,7 @@ import (
 
 	"github.com/tendermint/tendermint/crypto/ed25519"
 
-	"github.com/kepler/cert"
+	"github.com/QOSGroup/kepler/cert"
 
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/libs/common"

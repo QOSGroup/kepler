@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kepler/cert"
+	"github.com/QOSGroup/kepler/cert"
 	"github.com/spf13/cobra"
 	amino "github.com/tendermint/go-amino"
 	"github.com/tendermint/tendermint/crypto"
@@ -50,11 +50,11 @@ func init() {
 
 	cdc.RegisterInterface((*crypto.PubKey)(nil), nil)
 	cdc.RegisterConcrete(ed25519.PubKeyEd25519{},
-		ed25519.PubKeyAminoRoute, nil)
+		ed25519.Ed25519PubKeyAminoRoute, nil)
 
 	cdc.RegisterInterface((*crypto.PrivKey)(nil), nil)
 	cdc.RegisterConcrete(ed25519.PrivKeyEd25519{},
-		ed25519.PrivKeyAminoRoute, nil)
+		ed25519.Ed25519PrivKeyAminoRoute, nil)
 
 	RootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "verbose output")
 }
