@@ -3,11 +3,9 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/tendermint/tendermint/crypto/ed25519"
-
 	"github.com/QOSGroup/kepler/cert"
-
 	"github.com/spf13/cobra"
+	"github.com/tendermint/tendermint/crypto/ed25519"
 	"github.com/tendermint/tendermint/libs/common"
 )
 
