@@ -71,9 +71,9 @@ func sign(cmd *cobra.Command, args []string) {
 func init() {
 	RootCmd.AddCommand(SignCmd)
 
-	ReqCmd.PersistentFlags().StringVar(&csrFile, "in-sign-req", "root.csr", "certificate signing request filename")
-	ReqCmd.PersistentFlags().StringVar(&crtFile, "out-signed-ca", "root.crt", "certificate signed")
-	ReqCmd.PersistentFlags().StringVar(&privateKeyFile, "in-key-pri", "key.pri", "private key")
-	ReqCmd.PersistentFlags().StringVar(&publicKeyFile, "in-key-pub", "key.pub", "public key")
+	SignCmd.PersistentFlags().StringVar(&csrFile, "in-sign-req", "root.csr", "certificate signing request filename")
+	SignCmd.PersistentFlags().StringVar(&crtFile, "out-signed-ca", "root.crt", "certificate signed")
+	SignCmd.PersistentFlags().StringVar(&privateKeyFile, "in-key-pri", "key.pri", "private key")
+	SignCmd.PersistentFlags().StringVar(&publicKeyFile, "in-key-pub", "key.pub", "public key")
 
 }

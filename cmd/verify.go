@@ -34,5 +34,5 @@ func verify(cmd *cobra.Command, args []string) {
 func init() {
 	RootCmd.AddCommand(VerifyCmd)
 
-	ReqCmd.PersistentFlags().StringVar(&crtFile, "in-signed-ca", "my.crt", "certificate signed")
+	VerifyCmd.PersistentFlags().StringVar(&crtFile, "in-signed-ca", "my.crt", "certificate signed")
 }
