@@ -24,6 +24,6 @@ Note: 将来可能增加其他字段
 
 ## Certificate
 
-* `CSR`: 请求者信息
-* `CA`: 签发者信息
-* `Signature`: 签名信息
+* `CSR`: 请求者信息(type: CertificateSigningRequest)
+* `CA`: 签发者信息(type: Issuer)
+* `Signature`: 签名信息(type: []byte)
