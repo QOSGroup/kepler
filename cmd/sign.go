@@ -56,7 +56,7 @@ func sign(cmd *cobra.Command, args []string) {
 	}
 
 	// Sign CSR
-	crt.Issuer = pubKey
+	crt.CA.PublicKey = pubKey
 	csr.NotBefore = time.Now()
 	csr.NotAfter = time.Now().AddDate(1, 0, 0)
 	crt.CSR = csr
@@ -75,5 +75,6 @@ func init() {
 	SignCmd.PersistentFlags().StringVar(&crtFile, "out-signed-ca", "root.crt", "certificate signed")
 	SignCmd.PersistentFlags().StringVar(&privateKeyFile, "in-key-pri", "key.pri", "private key")
 	SignCmd.PersistentFlags().StringVar(&publicKeyFile, "in-key-pub", "key.pub", "public key")
+	SignCmd.PersistentFlags().StringVar(&crt.CA.Subj.CN, "cn", "CA", "Issuer common name")
 
 }

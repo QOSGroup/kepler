@@ -20,7 +20,7 @@ $PWD/$CMD req
 $PWD/$CMD sign
 sleep 1
 $PWD/$CMD verify
-# $PWD/$CMD show
+$PWD/$CMD show
 
 
 # QOS 
@@ -29,7 +29,7 @@ $PWD/$CMD req --in-public-key qos.pub --cn QOS --out-sign-req qos.csr
 $PWD/$CMD sign  --in-key-pri key.pri --in-key-pub key.pub --in-sign-req qos.csr --out-signed-ca qos.crt
 sleep 1
 $PWD/$CMD verify --in-signed-ca qos.crt
-# $PWD/$CMD show --in-csr-file qos.csr --in-crt-file qos.crt
+$PWD/$CMD show --in-csr-file qos.csr --in-crt-file qos.crt
 
 
 # QSC
@@ -38,4 +38,4 @@ $PWD/$CMD req --in-public-key qsc.pub --cn QSC --out-sign-req qsc.csr
 $PWD/$CMD sign  --in-key-pri key.pri --in-key-pub key.pub --in-sign-req qsc.csr --out-signed-ca qsc.crt
 sleep 1
 $PWD/$CMD verify --in-signed-ca qsc.crt
-# $PWD/$CMD show --in-csr-file qsc.csr --in-crt-file qsc.crt
+$PWD/$CMD show --in-csr-file qsc.csr --in-crt-file qsc.crt
