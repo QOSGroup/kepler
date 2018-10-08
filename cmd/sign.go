@@ -56,7 +56,7 @@ func sign(cmd *cobra.Command, args []string) {
 	}
 
 	// Sign CSR
-	csr.Issuer = pubKey
+	crt.Issuer = pubKey
 	csr.NotBefore = time.Now()
 	csr.NotAfter = time.Now().AddDate(1, 0, 0)
 	crt.CSR = csr

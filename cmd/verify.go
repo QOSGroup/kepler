@@ -43,8 +43,8 @@ func verify(cmd *cobra.Command, args []string) {
 	// Check issuer
 	ok := false
 	for _, value := range trustCrts.PublicKeys {
-		if value.Equals(crt.CSR.Issuer) {
-			ok = crt.CSR.Issuer.VerifyBytes(crt.CSR.Bytes(cdc), crt.Signature)
+		if value.Equals(crt.Issuer) {
+			ok = crt.Issuer.VerifyBytes(crt.CSR.Bytes(cdc), crt.Signature)
 			break
 		}
 	}
