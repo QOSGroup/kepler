@@ -26,4 +26,5 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
  - [ ] Http RPC
  - [ ] Cobra do not use global var
  - [ ] Add test case
+ - [ ] Test illegal certificates
  - [ ] CA trust list
