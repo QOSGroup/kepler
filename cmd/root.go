@@ -16,8 +16,10 @@ var (
 	publicKeyFile  string
 	csrFile        string
 	crtFile        string
+	trustCrtsFile  string
 	csr            cert.CertificateSigningRequest
 	crt            cert.Certificate
+	trustCrts      cert.TrustCrts
 	verbose        bool
 )
 
@@ -43,6 +45,8 @@ func init() {
 		cert.CsrAminoRoute, nil)
 	cdc.RegisterConcrete(cert.Certificate{},
 		cert.CrtAminoRoute, nil)
+	cdc.RegisterConcrete(cert.TrustCrts{},
+		cert.TrustCrtsAminoRoute, nil)
 
 	cdc.RegisterInterface((*crypto.PubKey)(nil), nil)
 	cdc.RegisterConcrete(ed25519.PubKeyEd25519{},

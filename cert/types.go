@@ -8,8 +8,9 @@ import (
 )
 
 const (
-	CsrAminoRoute = "certificate/csr"
-	CrtAminoRoute = "certificate/crt"
+	CsrAminoRoute       = "certificate/csr"
+	CrtAminoRoute       = "certificate/crt"
+	TrustCrtsAminoRoute = "certificate/trustCrts"
 )
 
 type Serialization interface {
@@ -63,6 +64,28 @@ func (crt Certificate) Json(cdc *amino.Codec) []byte {
 
 func (crt Certificate) Bytes(cdc *amino.Codec) []byte {
 	bz, err := cdc.MarshalBinaryBare(crt)
+	if err != nil {
+		panic(err)
+	}
+	return bz
+}
+
+var _ Serialization = TrustCrts{}
+
+type TrustCrts struct {
+	PublicKeys []ed25519.PubKeyEd25519 `json:"public_keys"`
+}
+
+func (certs TrustCrts) Json(cdc *amino.Codec) []byte {
+	bz, err := cdc.MarshalJSON(certs)
+	if err != nil {
+		panic(err)
+	}
+	return bz
+}
+
+func (certs TrustCrts) Bytes(cdc *amino.Codec) []byte {
+	bz, err := cdc.MarshalBinaryBare(certs)
 	if err != nil {
 		panic(err)
 	}

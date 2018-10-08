@@ -9,7 +9,7 @@ PWD=$(cd "$(dirname "$0")"; pwd)
 cd $PWD
 CMD=`basename "$PWD"`
 
-rm -f $CMD *.pri *.pub *.csr *.crt
+rm -f $CMD *.pri *.pub *.csr *.crt trust.crts
 
 go build
 
@@ -19,6 +19,7 @@ $PWD/$CMD req
 $PWD/$CMD sign
 $PWD/$CMD verify
 $PWD/$CMD show
+$PWD/$CMD trust --in-public-key key.pub --out-trust-crts trust.crts
 
 
 # QOS 

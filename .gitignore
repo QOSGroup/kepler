@@ -20,3 +20,4 @@ kepler
 *.pub
 *.crt
 *.csr
+trust.crts
