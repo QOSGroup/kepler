@@ -18,6 +18,7 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
 * `key.pub`: Public Key
 * `root.csr`: Certificate Signing Request
 * `root.crt`: Short For Certificate
+* `trust.crts`: Trust Root Certificate
 
 
 ## TODO
