@@ -42,5 +42,5 @@ func init() {
 	ReqCmd.PersistentFlags().StringVar(&csr.CN, "cn", "CA", "Common name")
 	ReqCmd.PersistentFlags().BoolVar(&csr.IsBanker, "is-banker", false, "Additional attributes")
 	ReqCmd.PersistentFlags().StringVar(&publicKeyFile, "in-public-key", "key.pub", "public key filename")
-	ReqCmd.PersistentFlags().StringVar(&csrFile, "out-sign-req", "my.csr", "certificate signing request filename")
+	ReqCmd.PersistentFlags().StringVar(&csrFile, "out-sign-req", "root.csr", "certificate signing request filename")
 }
