@@ -57,12 +57,12 @@ func verify(cmd *cobra.Command, args []string) {
 
 	// TODO: add publicKey to trustCrts if crt.CSR.IsCa is true
 
-	fmt.Println("verify result:", ok)
+	fmt.Println(crtFile, "verify result:", ok)
 }
 
 func init() {
 	RootCmd.AddCommand(VerifyCmd)
 
-	VerifyCmd.PersistentFlags().StringVar(&crtFile, "in-signed-ca", "my.crt", "certificate signed")
+	VerifyCmd.PersistentFlags().StringVar(&crtFile, "in-signed-ca", "root.crt", "certificate signed")
 	VerifyCmd.PersistentFlags().StringVar(&trustCrtsFile, "in-trust-crts", "trust.crts", "trust certificate list")
 }
