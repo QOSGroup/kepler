@@ -21,3 +21,5 @@ kepler
 *.crt
 *.csr
 trust.crts
+
+.idea
