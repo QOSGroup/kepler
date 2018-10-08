@@ -18,7 +18,7 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
 * `key.pub`: Public Key
 * `root.csr`: Certificate Signing Request
 * `root.crt`: Short For Certificate
-* `trust.crts`: Trust Root Certificate
+* `trust.crts`: Trusted Root Certificate List
 
 
 ## TODO
@@ -28,4 +28,8 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
  - [ ] Cobra do not use global var
  - [ ] Add test case
  - [ ] Test illegal certificates
- - [ ] CA trust list
+
+## Acknowledgements
+
+ * [tendermint](https://github.com/tendermint/tendermint)
+ * [openssl](https://github.com/openssl/openssl)
