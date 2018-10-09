@@ -19,7 +19,6 @@ var (
 	trustCrtsFile  string
 	csr            cert.CertificateSigningRequest
 	crt            cert.Certificate
-	trustCrts      cert.TrustCrts
 	verbose        bool
 )
 
