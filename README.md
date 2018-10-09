@@ -1,4 +1,5 @@
 # kepler
+**Note: Requires Go 1.11+**
 
 Another certificate format `BCM`, similar to `PEM` OR `DER`
 
