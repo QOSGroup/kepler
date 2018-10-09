@@ -23,11 +23,12 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
 
 ## TODO
  
+ - [ ] Four-factor
+ - [ ] Add test case
+ - [ ] Test illegal certificates
  - [ ] Conversion tools, pem and der to bcm 
  - [ ] Http RPC
  - [ ] Cobra do not use global var
- - [ ] Add test case
- - [ ] Test illegal certificates
 
 ## Acknowledgements
 
