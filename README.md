@@ -1,5 +1,8 @@
 # kepler
-**Note: Requires Go 1.11+**
+[![codecov](https://codecov.io/gh/QOSGroup/kepler/branch/master/graph/badge.svg)](https://codecov.io/gh/QOSGroup/kepler)
+[![Go version](https://img.shields.io/badge/go-1.11.0-blue.svg)](https://github.com/moovweb/gvm)
+[![license](https://img.shields.io/github/license/QOSGroup/kepler.svg)](https://github.com/QOSGroup/kepler/blob/master/LICENSE)
+[![](https://tokei.rs/b1/github/QOSGroup/kepler?category=lines)](https://github.com/QOSGroup/kepler)
 
 Another certificate format `BCM`, similar to `PEM` OR `DER`
 
