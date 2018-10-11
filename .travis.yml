@@ -1,14 +1,15 @@
 language: go
-
+sudo: false
 go:
   - 1.11.x
   - tip
 
 before_install:
-  - go get -t -v ./...
+  - go build
 
 script:
-  - go test -race -coverprofile=coverage.txt -covermode=atomic
+  - ./go test
+  - ./test.sh
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t 0f7fc8a3-741b-4a89-958c-b4a76b40a936
+  - bash <(curl -s https://codecov.io/bash)
