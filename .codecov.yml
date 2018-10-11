@@ -24,3 +24,5 @@ ignore:
   - "*.md"
   - "*.rst"
 
+codecov:
+  token: 0f7fc8a3-741b-4a89-958c-b4a76b40a936
