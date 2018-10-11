@@ -38,5 +38,5 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
 
 ## Acknowledgements
 
- * [openssl](https://github.com/openssl/openssl)
  * [tendermint](https://github.com/tendermint/tendermint)
+ * [openssl](https://github.com/openssl/openssl)
