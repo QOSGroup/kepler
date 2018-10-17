@@ -8,6 +8,10 @@
 
 Another certificate format `BCM`, similar to `PEM` OR `DER`
 
+> Disclaimer
+>
+> This is work in progress. Mechanisms and values are susceptible to change.
+
 ## OpenSSL
 
 * PEM–Format
