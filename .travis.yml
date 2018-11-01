@@ -7,7 +7,6 @@ before_install:
   - go build
 
 script:
-  - go test
   - ./test.sh
   - go test -race -coverprofile=coverage.txt -covermode=atomic
 
