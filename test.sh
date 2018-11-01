@@ -13,29 +13,39 @@ rm -f $CMD *.pri *.pub *.csr *.crt trust.crts
 
 go build
 
-# ROOT
-$PWD/$CMD genkey
-$PWD/$CMD trust --in-public-key key.pub --out-trust-crts trust.crts
-$PWD/$CMD req
-$PWD/$CMD sign
+
+########
+# ROOT #
+########
+
+$PWD/$CMD genkey --out-private-key root.pri --out-public-key root.pub
+$PWD/$CMD trust --in-public-key root.pub --out-trust-crts trust.crts
+$PWD/$CMD req --in-public-key root.pub --is-ca true
+$PWD/$CMD sign --in-key-pri root.pri --in-key-pub root.pub
 sleep 1
 $PWD/$CMD verify
 $PWD/$CMD show
 
 
-# QOS 
+#######
+# QOS #
+#######
+
 $PWD/$CMD genkey --out-private-key qos.pri --out-public-key qos.pub $VERBOSE
 $PWD/$CMD req --in-public-key qos.pub --cn QOS --out-sign-req qos.csr
-$PWD/$CMD sign  --in-key-pri key.pri --in-key-pub key.pub --in-sign-req qos.csr --out-signed-ca qos.crt
+$PWD/$CMD sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req qos.csr --out-signed-ca qos.crt
 sleep 1
 $PWD/$CMD verify --in-signed-ca qos.crt
 $PWD/$CMD show --in-csr-file qos.csr --in-crt-file qos.crt
 
 
-# QSC
+#######
+# QSC #
+#######
+
 $PWD/$CMD genkey --out-private-key qsc.pri --out-public-key qsc.pub $VERBOSE
-$PWD/$CMD req --in-public-key qsc.pub --cn QSC --out-sign-req qsc.csr
-$PWD/$CMD sign  --in-key-pri key.pri --in-key-pub key.pub --in-sign-req qsc.csr --out-signed-ca qsc.crt
+$PWD/$CMD req --in-public-key qsc.pub --cn QSC --is-banker true --out-sign-req qsc.csr
+$PWD/$CMD sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req qsc.csr --out-signed-ca qsc.crt
 sleep 1
 $PWD/$CMD verify --in-signed-ca qsc.crt
 $PWD/$CMD show --in-csr-file qsc.csr --in-crt-file qsc.crt
