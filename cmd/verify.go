@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/tendermint/tendermint/crypto/ed25519"
+
 	"github.com/QOSGroup/kepler/cert"
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/libs/common"
@@ -14,6 +16,26 @@ var VerifyCmd = &cobra.Command{
 	Short: "verify certificate signature",
 	Long:  `verify certificate signature`,
 	Run:   verify,
+}
+
+func VerityCrt(caPublicKeys []ed25519.PubKeyEd25519, crt cert.Certificate) bool {
+	ok := false
+
+	// Check issuer
+	for _, value := range caPublicKeys {
+		if value.Equals(crt.CA.PublicKey) {
+			ok = crt.CA.PublicKey.VerifyBytes(crt.CSR.Bytes(cdc), crt.Signature)
+			break
+		}
+	}
+
+	// Check timestamp
+	now := time.Now().Unix()
+	if now <= crt.CSR.NotBefore.Unix() || now >= crt.CSR.NotAfter.Unix() {
+		ok = false
+	}
+
+	return ok
 }
 
 func verify(cmd *cobra.Command, args []string) {
@@ -40,21 +62,7 @@ func verify(cmd *cobra.Command, args []string) {
 	}
 
 	// Check issuer
-	ok := false
-	for _, value := range trustCrts.PublicKeys {
-		if value.Equals(crt.CA.PublicKey) {
-			ok = crt.CA.PublicKey.VerifyBytes(crt.CSR.Bytes(cdc), crt.Signature)
-			break
-		}
-	}
-
-	// Check timestamp
-	now := time.Now().Unix()
-	if now <= crt.CSR.NotBefore.Unix() || now >= crt.CSR.NotAfter.Unix() {
-		ok = false
-	}
-
-	// TODO: add publicKey to trustCrts if crt.CSR.IsCa is true
+	ok := VerityCrt(trustCrts.PublicKeys, crt)
 
 	fmt.Println(crtFile, "verify result:", ok)
 }

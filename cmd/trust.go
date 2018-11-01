@@ -44,6 +44,9 @@ func trust(cmd *cobra.Command, args []string) {
 			}
 		}
 	}
+
+	// TODO: add publicKey to trustCrts if crt.CSR.IsCa is true
+
 	trustCrts.PublicKeys = append(trustCrts.PublicKeys, publicKey)
 
 	common.MustWriteFile(trustCrtsFile, trustCrts.Json(cdc), 0644)
