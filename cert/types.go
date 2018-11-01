@@ -79,6 +79,18 @@ func (crt Certificate) Bytes(cdc *amino.Codec) []byte {
 	return bz
 }
 
+func (crt Certificate) GetQscName() string {
+	return crt.CSR.Subj.CN
+}
+
+func (crt Certificate) IsBanker() bool {
+	return crt.CSR.IsBanker
+}
+
+func (crt Certificate) GetPublicKey() ed25519.PubKeyEd25519 {
+	return crt.CSR.PublicKey
+}
+
 var _ Serialization = TrustCrts{}
 
 type TrustCrts struct {
