@@ -14,7 +14,7 @@ func TestGetQscName(t *testing.T) {
 	crt := Certificate{}
 	crt.CSR = csr
 
-	assert.Equal(t, "QOSC1", crt.GetQscName())
+	assert.Equal(t, "QOSC1", crt.QscName())
 }
 
 func TestIsBanker(t *testing.T) {
@@ -37,5 +37,5 @@ func TestGetPublicKey(t *testing.T) {
 	crt := Certificate{}
 	crt.CSR = csr
 
-	assert.Equal(t, true, pubKey.Equals(crt.GetPublicKey()))
+	assert.Equal(t, true, pubKey.Equals(crt.PublicKey()))
 }

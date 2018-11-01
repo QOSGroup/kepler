@@ -20,5 +20,5 @@ require (
 	github.com/tendermint/ed25519 v0.0.0-20171027050219-d8387025d2b9 // indirect
 	github.com/tendermint/go-amino v0.14.0
 	github.com/tendermint/tendermint v0.23.1
+	golang.org/x/crypto v0.0.0-20181030102418-4d3f4d9ffa16 // indirect
 )
-
