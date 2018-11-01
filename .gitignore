@@ -16,11 +16,5 @@
 *.bcm
 kepler
 
-*.pri
-*.pub
-*.crt
-*.csr
-trust.crts
-
 .idea
 coverage.txt
