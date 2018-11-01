@@ -14,6 +14,7 @@ const (
 )
 
 type Subject struct {
+	// TODO: Compatible with the openssl
 	CN string `json:"cn"`
 }
 
@@ -25,8 +26,8 @@ type Serialization interface {
 var _ Serialization = CertificateSigningRequest{}
 
 type CertificateSigningRequest struct {
-	IsCa      bool                  `json:"is_ca"`
 	Subj      Subject               `json:"subj"`
+	IsCa      bool                  `json:"is_ca"`
 	IsBanker  bool                  `json:"is_banker"`
 	NotBefore time.Time             `json:"not_before"`
 	NotAfter  time.Time             `json:"not_after"`
@@ -52,8 +53,8 @@ func (csr CertificateSigningRequest) Bytes(cdc *amino.Codec) []byte {
 var _ Serialization = Certificate{}
 
 type Issuer struct {
-	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
 	Subj      Subject               `json:"subj"`
+	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
 }
 
 type Certificate struct {
