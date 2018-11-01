@@ -1,5 +1,6 @@
 # kepler
 
+[![version](https://img.shields.io/github/tag/QOSGroup/kepler.svg)]
 [![Build Status](https://travis-ci.org/QOSGroup/kepler.svg?branch=master)](https://travis-ci.org/QOSGroup/kepler)
 [![codecov](https://codecov.io/gh/QOSGroup/kepler/branch/master/graph/badge.svg)](https://codecov.io/gh/QOSGroup/kepler)
 [![Go version](https://img.shields.io/badge/go-1.11.0-blue.svg)](https://github.com/moovweb/gvm)
