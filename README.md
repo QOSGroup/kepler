@@ -21,16 +21,16 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
   
 ## The file suffix
 
-* `key.pri`: Private Key
-* `key.pub`: Public Key
+* `root.pri`: Private Key
+* `root.pub`: Public Key
 * `root.csr`: Certificate Signing Request
-* `root.crt`: Short For Certificate
+* `root.crt`: Certificate File
 * `trust.crts`: Trusted Root Certificate List
 
 
 ## TODO
  
- - [ ] Four-factor
+ - [ ] Two-factor
  - [ ] Add test case
  - [ ] Test illegal certificates
  - [ ] Conversion tools, pem and der to bcm 
@@ -39,8 +39,8 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
 
 ## Acknowledgements
 
- * [tendermint](https://github.com/tendermint/tendermint)
  * [openssl](https://github.com/openssl/openssl)
+ * [tendermint](https://github.com/tendermint/tendermint)
 
 ## Disclaimer
 
