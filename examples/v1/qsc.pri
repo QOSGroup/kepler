@@ -1,1 +1,1 @@
-£(â@ú-Zûmm3Ω?DmG|mæYÒ!¥¢œÃET(È'ﬁ/]3—ÛÑ∫ë§K=h=Ú≈ÛÅΩA∞ı·Ò˙–.¥w
+{"type":"tendermint/PrivKeyEd25519","value":"nH8tWp4YbW0zvR4/RG1HfG2+WfEhtKLPzEUBVCjpJ94vXTPR84S6kaRLPWg98sUW8xCBvUGw9RHh8RH60C60dw=="}
