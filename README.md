@@ -29,7 +29,7 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
 
 ## Usage
 
-First you need to create the root certificate, then the union chain certificate, and finally optionally the coinage certificate
+First you need to create the root certificate, then the union chain certificate, and finally optionally the banker and replay
 
 ### ROOT
 
@@ -64,6 +64,17 @@ kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req banker.cs
 
 kepler verify --in-signed-ca banker.crt
 kepler show --in-csr-file banker.csr --in-crt-file banker.crt
+```
+
+### REPLAY
+
+```
+kepler genkey --out-private-key relay.pri --out-public-key relay.pub $VERBOSE
+kepler req --in-public-key relay.pub --cn QSC_RELAY --out-sign-req relay.csr
+kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req relay.csr --out-signed-ca relay.crt
+
+kepler verify --in-signed-ca relay.crt
+kepler show --in-csr-file relay.csr --in-crt-file relay.crt
 ```
 
 ## TODO

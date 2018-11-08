@@ -48,4 +48,15 @@ sleep 1
 $PWD/$CMD verify --in-signed-ca banker.crt
 $PWD/$CMD show --in-csr-file banker.csr --in-crt-file banker.crt
 
+##########
+# REPLAY #
+##########
+
+$PWD/$CMD genkey --out-private-key relay.pri --out-public-key relay.pub $VERBOSE
+$PWD/$CMD req --in-public-key relay.pub --cn QSC_RELAY --out-sign-req relay.csr
+$PWD/$CMD sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req relay.csr --out-signed-ca relay.crt
+sleep 1
+$PWD/$CMD verify --in-signed-ca relay.crt
+$PWD/$CMD show --in-csr-file relay.csr --in-crt-file relay.crt
+
 
