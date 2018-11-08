@@ -26,7 +26,7 @@ func req(cmd *cobra.Command, args []string) {
 
 	publicBytes := common.MustReadFile(publicKeyFile)
 
-	err := cdc.UnmarshalBinaryBare(publicBytes, &csr.PublicKey)
+	err := cdc.UnmarshalJSON(publicBytes, &csr.PublicKey)
 	if err != nil {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}

@@ -42,7 +42,7 @@ func sign(cmd *cobra.Command, args []string) {
 	// Load PrivKey
 	var privKey ed25519.PrivKeyEd25519
 	priKeyBytes := common.MustReadFile(privateKeyFile)
-	err = cdc.UnmarshalBinaryBare(priKeyBytes, &privKey)
+	err = cdc.UnmarshalJSON(priKeyBytes, &privKey)
 	if err != nil {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}
@@ -50,7 +50,7 @@ func sign(cmd *cobra.Command, args []string) {
 	// Load PubKey
 	var pubKey ed25519.PubKeyEd25519
 	pubKeyBytes := common.MustReadFile(publicKeyFile)
-	err = cdc.UnmarshalBinaryBare(pubKeyBytes, &pubKey)
+	err = cdc.UnmarshalJSON(pubKeyBytes, &pubKey)
 	if err != nil {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}

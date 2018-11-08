@@ -28,7 +28,7 @@ func trust(cmd *cobra.Command, args []string) {
 
 	var publicKey ed25519.PubKeyEd25519
 	publicBytes := common.MustReadFile(publicKeyFile)
-	err := cdc.UnmarshalBinaryBare(publicBytes, &publicKey)
+	err := cdc.UnmarshalJSON(publicBytes, &publicKey)
 	if err != nil {
 		common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 	}

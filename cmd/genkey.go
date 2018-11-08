@@ -22,10 +22,18 @@ func genkey(cmd *cobra.Command, args []string) {
 	}
 
 	privKey := ed25519.GenPrivKey()
-	pubKey := privKey.PubKey()
+	priKeyBytes, err := cdc.MarshalJSON(privKey)
+	if err != nil {
+		common.Exit(fmt.Sprintf("cdc.MarshalJSON failed: %v", err))
+	}
+	common.MustWriteFile(privateKeyFile, priKeyBytes, 0644)
 
-	common.MustWriteFile(privateKeyFile, privKey.Bytes(), 0644)
-	common.MustWriteFile(publicKeyFile, pubKey.Bytes(), 0644)
+	pubKey := privKey.PubKey()
+	pubKeyBytes, err := cdc.MarshalJSON(pubKey.(ed25519.PubKeyEd25519))
+	if err != nil {
+		common.Exit(fmt.Sprintf("cdc.MarshalJSON failed: %v", err))
+	}
+	common.MustWriteFile(publicKeyFile, pubKeyBytes, 0644)
 }
 
 func init() {
