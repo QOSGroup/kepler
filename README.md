@@ -27,6 +27,44 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
 * `root.crt`: Certificate File
 * `trust.crts`: Trusted Root Certificate List
 
+## Usage
+
+First you need to create the root certificate, then the union chain certificate, and finally optionally the coinage certificate
+
+### ROOT
+
+```
+kepler genkey --out-private-key root.pri --out-public-key root.pub
+kepler trust --in-public-key root.pub --out-trust-crts trust.crts
+kepler req --in-public-key root.pub --is-ca true
+kepler sign --in-key-pri root.pri --in-key-pub root.pub
+
+kepler verify
+kepler show
+
+```
+
+### QSC
+
+```
+kepler genkey --out-private-key qsc.pri --out-public-key qsc.pub $VERBOSE
+kepler req --in-public-key qsc.pub --cn QSC --out-sign-req qsc.csr
+kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req qsc.csr --out-signed-ca qsc.crt
+
+kepler verify --in-signed-ca qsc.crt
+kepler show --in-csr-file qsc.csr --in-crt-file qsc.crt
+```
+
+### BANKER
+
+```
+kepler genkey --out-private-key banker.pri --out-public-key banker.pub $VERBOSE
+kepler req --in-public-key banker.pub --cn QSC --is-banker true --out-sign-req banker.csr
+kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req banker.csr --out-signed-ca banker.crt
+
+kepler verify --in-signed-ca banker.crt
+kepler show --in-csr-file banker.csr --in-crt-file banker.crt
+```
 
 ## TODO
  
