@@ -1,0 +1,1 @@
+{"type":"tendermint/PrivKeyEd25519","value":"CxEFAa+cnPT7mbUsN+f93oHtQPHzsPfMb3QWzwKlE+PmSPjIQ5KxN/X+fU2yIZ3pcR/Uvpd7v1I0lCexeqTCbg=="}
