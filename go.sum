@@ -32,6 +32,8 @@ github.com/stretchr/testify v1.2.2 h1:bSDNvY7ZPG5RlJ8otE/7V6gMiyenm9RtJ7IUVIAoJ1
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/tendermint/ed25519 v0.0.0-20171027050219-d8387025d2b9 h1:zccWau0P8FELSb4HTDJ88hRo+WVNMbIbg27rFqDrhCE=
 github.com/tendermint/ed25519 v0.0.0-20171027050219-d8387025d2b9/go.mod h1:nt45hbhDkWVdMBkr2TOgOzCrpBccXdN09WOiOYTHVEk=
+github.com/tendermint/go-amino v0.13.0 h1:12MmMm+vGoaYtyK27VqRIWhEoQ5TuFksU1nqLeup/+Q=
+github.com/tendermint/go-amino v0.13.0/go.mod h1:i/UKE5Uocn+argJJBb12qTZsCDBcAYMbR92AaJVmKso=
 github.com/tendermint/go-amino v0.14.0 h1:KQpB5tjLqe4+m/TQT93lfg1VdYypbEwrqtDMk84o4Bs=
 github.com/tendermint/go-amino v0.14.0/go.mod h1:i/UKE5Uocn+argJJBb12qTZsCDBcAYMbR92AaJVmKso=
 github.com/tendermint/tendermint v0.23.1 h1:s58/4q//CENzOO09y/xEuBgXqstp8xDxoBGnv9hVZrk=
