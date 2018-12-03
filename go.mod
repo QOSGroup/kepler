@@ -18,7 +18,7 @@ require (
 	github.com/spf13/pflag v1.0.3 // indirect
 	github.com/stretchr/testify v1.2.2
 	github.com/tendermint/ed25519 v0.0.0-20171027050219-d8387025d2b9 // indirect
-	github.com/tendermint/go-amino v0.13.0
+	github.com/tendermint/go-amino v0.12.0
 	github.com/tendermint/tendermint v0.23.1
 	golang.org/x/crypto v0.0.0-20181030102418-4d3f4d9ffa16 // indirect
 )
