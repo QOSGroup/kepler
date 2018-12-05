@@ -22,7 +22,7 @@ func mint(cmd *cobra.Command, args []string) {
 		fmt.Println("public key file:", publicKeyFile)
 	}
 
-	min_address := "0000002667ac51cebb52c137251d6db17da5d24b"
+	min_address := "00000000d697a7be725d9b262917bc6844cc5211"
 
 	for a := 0; a < 10000000000; a++ {
 		privKey := ed25519.GenPrivKey()
