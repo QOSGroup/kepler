@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/libs/common"
 )
@@ -39,7 +38,7 @@ func show(cmd *cobra.Command, args []string) {
 			common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 		}
 
-		fmt.Println("csrFile:", string(csr.Json(cdc)))
+		fmt.Println("csrFile:", string(MustMarshalJson(csr)))
 	}
 
 	// READ CRT
@@ -51,7 +50,7 @@ func show(cmd *cobra.Command, args []string) {
 			common.Exit(fmt.Sprintf("cdc.UnmarshalBinaryBare failed: %v", err))
 		}
 
-		fmt.Println("crtFile:", string(crt.Json(cdc)))
+		fmt.Println("crtFile:", string(MustMarshalJson(csr)))
 	}
 
 }

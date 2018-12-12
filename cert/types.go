@@ -1,60 +1,35 @@
 package cert
 
 import (
+	"github.com/tendermint/tendermint/crypto"
+	"github.com/tendermint/tendermint/types"
 	"time"
-
-	amino "github.com/tendermint/go-amino"
-	"github.com/tendermint/tendermint/crypto/ed25519"
 )
 
 const (
-	CsrAminoRoute       = "certificate/csr"
-	CrtAminoRoute       = "certificate/crt"
-	TrustCrtsAminoRoute = "certificate/trustCrts"
+	CommonSubjAminoRoute = "certificate/CommonSubject"
+	QSCSubjAminoRoute    = "certificate/QSCSubject"
+	QCPSubjAminoRoute    = "certificate/QCPSubject"
 )
 
-type Subject struct {
-	// TODO: Compatible with the openssl
-	CN string `json:"cn"`
-}
-
-type Serialization interface {
-	Json(cdc *amino.Codec) []byte
-	Bytes(cdc *amino.Codec) []byte
-}
-
-var _ Serialization = CertificateSigningRequest{}
+type Subject interface{}
 
 type CertificateSigningRequest struct {
-	Subj      Subject               `json:"subj"`
-	IsCa      bool                  `json:"is_ca"`
-	IsBanker  bool                  `json:"is_banker"`
-	NotBefore time.Time             `json:"not_before"`
-	NotAfter  time.Time             `json:"not_after"`
-	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
+	ChainId   string        `json:"chain_id"`
+	Subj      Subject       `json:"subj"`
+	IsCa      bool          `json:"is_ca"`
+	NotBefore time.Time     `json:"not_before"`
+	NotAfter  time.Time     `json:"not_after"`
+	PublicKey crypto.PubKey `json:"public_key"`
 }
-
-func (csr CertificateSigningRequest) Json(cdc *amino.Codec) []byte {
-	bz, err := cdc.MarshalJSON(csr)
-	if err != nil {
-		panic(err)
-	}
-	return bz
-}
-
-func (csr CertificateSigningRequest) Bytes(cdc *amino.Codec) []byte {
-	bz, err := cdc.MarshalBinaryBare(csr)
-	if err != nil {
-		panic(err)
-	}
-	return bz
-}
-
-var _ Serialization = Certificate{}
 
 type Issuer struct {
-	Subj      Subject               `json:"subj"`
-	PublicKey ed25519.PubKeyEd25519 `json:"public_key"`
+	Subj      Subject       `json:"subj"`
+	PublicKey crypto.PubKey `json:"public_key"`
+}
+
+type CommonSubject struct {
+	CN string `json:"cn"`
 }
 
 type Certificate struct {
@@ -63,52 +38,57 @@ type Certificate struct {
 	Signature []byte                    `json:"signature"`
 }
 
-func (crt Certificate) Json(cdc *amino.Codec) []byte {
-	bz, err := cdc.MarshalJSON(crt)
-	if err != nil {
-		panic(err)
-	}
-	return bz
+func (crt Certificate) ChainId() string {
+	return crt.CSR.ChainId
 }
 
-func (crt Certificate) Bytes(cdc *amino.Codec) []byte {
-	bz, err := cdc.MarshalBinaryBare(crt)
-	if err != nil {
-		panic(err)
-	}
-	return bz
-}
-
-func (crt Certificate) QscName() string {
-	return crt.CSR.Subj.CN
-}
-
-func (crt Certificate) IsBanker() bool {
-	return crt.CSR.IsBanker
-}
-
-func (crt Certificate) PublicKey() ed25519.PubKeyEd25519 {
+func (crt Certificate) PublicKey() crypto.PubKey {
 	return crt.CSR.PublicKey
 }
 
-var _ Serialization = TrustCrts{}
-
 type TrustCrts struct {
-	PublicKeys []ed25519.PubKeyEd25519 `json:"public_keys"`
+	PublicKeys []crypto.PubKey `json:"public_keys"`
 }
 
-func (certs TrustCrts) Json(cdc *amino.Codec) []byte {
-	bz, err := cdc.MarshalJSON(certs)
-	if err != nil {
-		panic(err)
-	}
-	return bz
+// QSC CA
+//-----------------------------------------------------
+
+type QSCSubject struct {
+	Name   string        `json:"name"`
+	Banker crypto.PubKey `json:"banker"`
 }
 
-func (certs TrustCrts) Bytes(cdc *amino.Codec) []byte {
-	bz, err := cdc.MarshalBinaryBare(certs)
-	if err != nil {
-		panic(err)
-	}
-	return bz
+type QSCCertificate struct {
+	*Certificate
+}
+
+func (crt QSCCertificate) QSCName() string {
+	subj := crt.CSR.Subj.(QSCSubject)
+	return subj.Name
+}
+
+func (crt QSCCertificate) HasBanker() bool {
+	subj := crt.CSR.Subj.(QSCSubject)
+	return subj.Banker != nil
+}
+
+func (crt QSCCertificate) Banker() types.Address {
+	subj := crt.CSR.Subj.(QSCSubject)
+	return subj.Banker.Address()
+}
+
+// QCP CA
+//-----------------------------------------------------
+
+type QCPSubject struct {
+	QCPChain string `json:"qcp_chain"`
+}
+
+type QCPCertificate struct {
+	*Certificate
+}
+
+func (crt QCPCertificate) QCPChain() string {
+	subj := crt.CSR.Subj.(QCPSubject)
+	return subj.QCPChain
 }

@@ -49,7 +49,7 @@ func trust(cmd *cobra.Command, args []string) {
 
 	trustCrts.PublicKeys = append(trustCrts.PublicKeys, publicKey)
 
-	common.MustWriteFile(trustCrtsFile, trustCrts.Json(cdc), 0644)
+	common.MustWriteFile(trustCrtsFile, MustMarshalJson(trustCrts), 0644)
 }
 
 func init() {

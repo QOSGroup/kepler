@@ -26,27 +26,28 @@ sleep 1
 $PWD/$CMD verify
 $PWD/$CMD show
 
-#######
+##########
 # QSC #
-#######
+##########
 
 $PWD/$CMD genkey --out-private-key qsc.pri --out-public-key qsc.pub $VERBOSE
-$PWD/$CMD req --in-public-key qsc.pub --cn QSC --out-sign-req qsc.csr
+$PWD/$CMD genkey --out-private-key banker.pri --out-public-key banker.pub $VERBOSE
+$PWD/$CMD req-qsc --in-public-key qsc.pub --chain-id qos-test --name qstars --banker banker.pub --out-sign-req qsc.csr
 $PWD/$CMD sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req qsc.csr --out-signed-ca qsc.crt
 sleep 1
 $PWD/$CMD verify --in-signed-ca qsc.crt
 $PWD/$CMD show --in-csr-file qsc.csr --in-crt-file qsc.crt
 
 ##########
-# BANKER #
+# QCP #
 ##########
 
-$PWD/$CMD genkey --out-private-key banker.pri --out-public-key banker.pub $VERBOSE
-$PWD/$CMD req --in-public-key banker.pub --cn QSC --is-banker true --out-sign-req banker.csr
-$PWD/$CMD sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req banker.csr --out-signed-ca banker.crt
+$PWD/$CMD genkey --out-private-key qcp.pri --out-public-key qcp.pub $VERBOSE
+$PWD/$CMD req-qcp --in-public-key qcp.pub --chain-id qos-test --qcp-chain qstars-test --out-sign-req qcp.csr
+$PWD/$CMD sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req qcp.csr --out-signed-ca qcp.crt
 sleep 1
-$PWD/$CMD verify --in-signed-ca banker.crt
-$PWD/$CMD show --in-csr-file banker.csr --in-crt-file banker.crt
+$PWD/$CMD verify --in-signed-ca qcp.crt
+$PWD/$CMD show --in-csr-file qcp.csr --in-crt-file qcp.crt
 
 ##########
 # REPLAY #

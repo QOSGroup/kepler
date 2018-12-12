@@ -2,9 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/tendermint/tendermint/crypto"
 	"time"
-
-	"github.com/tendermint/tendermint/crypto/ed25519"
 
 	"github.com/QOSGroup/kepler/cert"
 	"github.com/spf13/cobra"
@@ -18,13 +17,13 @@ var VerifyCmd = &cobra.Command{
 	Run:   verify,
 }
 
-func VerityCrt(caPublicKeys []ed25519.PubKeyEd25519, crt cert.Certificate) bool {
+func VerityCrt(caPublicKeys []crypto.PubKey, crt cert.Certificate) bool {
 	ok := false
 
 	// Check issuer
 	for _, value := range caPublicKeys {
 		if value.Equals(crt.CA.PublicKey) {
-			ok = crt.CA.PublicKey.VerifyBytes(crt.CSR.Bytes(cdc), crt.Signature)
+			ok = crt.CA.PublicKey.VerifyBytes(MustMarshalBinaryBare(crt.CSR), crt.Signature)
 			break
 		}
 	}

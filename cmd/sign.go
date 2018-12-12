@@ -60,12 +60,12 @@ func sign(cmd *cobra.Command, args []string) {
 	csr.NotBefore = time.Now()
 	csr.NotAfter = time.Now().AddDate(1, 0, 0)
 	crt.CSR = csr
-	crt.Signature, err = privKey.Sign(csr.Bytes(cdc))
+	crt.Signature, err = privKey.Sign(MustMarshalBinaryBare(csr))
 	if err != nil {
 		common.Exit(fmt.Sprintf("privKey.Sign failed: %v", err))
 	}
 
-	common.MustWriteFile(crtFile, crt.Bytes(cdc), 0644)
+	common.MustWriteFile(crtFile, MustMarshalBinaryBare(crt), 0644)
 }
 
 func init() {
@@ -75,6 +75,5 @@ func init() {
 	SignCmd.PersistentFlags().StringVar(&crtFile, "out-signed-ca", "root.crt", "certificate signed")
 	SignCmd.PersistentFlags().StringVar(&privateKeyFile, "in-key-pri", "key.pri", "private key")
 	SignCmd.PersistentFlags().StringVar(&publicKeyFile, "in-key-pub", "key.pub", "public key")
-	SignCmd.PersistentFlags().StringVar(&crt.CA.Subj.CN, "cn", "CA", "Issuer common name")
 
 }

@@ -9,22 +9,12 @@ import (
 
 func TestGetQscName(t *testing.T) {
 	csr := CertificateSigningRequest{}
-	csr.Subj.CN = "QOSC1"
+	csr.Subj = QSCSubject{Name: "QOSC1"}
 
-	crt := Certificate{}
+	crt := QSCCertificate{}
 	crt.CSR = csr
 
-	assert.Equal(t, "QOSC1", crt.QscName())
-}
-
-func TestIsBanker(t *testing.T) {
-	csr := CertificateSigningRequest{}
-	csr.IsBanker = true
-
-	crt := Certificate{}
-	crt.CSR = csr
-
-	assert.Equal(t, true, crt.IsBanker())
+	assert.Equal(t, "QOSC1", crt.QSCName())
 }
 
 func TestGetPublicKey(t *testing.T) {
