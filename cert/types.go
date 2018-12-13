@@ -15,7 +15,6 @@ const (
 type Subject interface{}
 
 type CertificateSigningRequest struct {
-	ChainId   string        `json:"chain_id"`
 	Subj      Subject       `json:"subj"`
 	IsCa      bool          `json:"is_ca"`
 	NotBefore time.Time     `json:"not_before"`
@@ -38,10 +37,6 @@ type Certificate struct {
 	Signature []byte                    `json:"signature"`
 }
 
-func (crt Certificate) ChainId() string {
-	return crt.CSR.ChainId
-}
-
 func (crt Certificate) PublicKey() crypto.PubKey {
 	return crt.CSR.PublicKey
 }
@@ -54,8 +49,9 @@ type TrustCrts struct {
 //-----------------------------------------------------
 
 type QSCSubject struct {
-	Name   string        `json:"name"`
-	Banker crypto.PubKey `json:"banker"`
+	ChainId string        `json:"chain_id"`
+	Name    string        `json:"name"`
+	Banker  crypto.PubKey `json:"banker"`
 }
 
 type QSCCertificate struct {
@@ -77,10 +73,16 @@ func (crt QSCCertificate) Banker() types.Address {
 	return subj.Banker.Address()
 }
 
+func (crt QSCCertificate) ChainId() string {
+	subj := crt.CSR.Subj.(QSCSubject)
+	return subj.ChainId
+}
+
 // QCP CA
 //-----------------------------------------------------
 
 type QCPSubject struct {
+	ChainId  string `json:"chain_id"`
 	QCPChain string `json:"qcp_chain"`
 }
 
@@ -91,4 +93,9 @@ type QCPCertificate struct {
 func (crt QCPCertificate) QCPChain() string {
 	subj := crt.CSR.Subj.(QCPSubject)
 	return subj.QCPChain
+}
+
+func (crt QCPCertificate) ChainId() string {
+	subj := crt.CSR.Subj.(QCPSubject)
+	return subj.ChainId
 }

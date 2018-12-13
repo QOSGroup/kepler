@@ -89,7 +89,7 @@ func QSCReqCmd() *cobra.Command {
 	cmd.Flags().BoolVar(&csr.IsCa, "is-ca", false, "Is it root certificate")
 	cmd.PersistentFlags().StringVar(&qscSubject.Name, "name", "", "QSC name")
 	cmd.PersistentFlags().StringVar(&bankerFile, "banker", "", "banker public key filename")
-	cmd.PersistentFlags().StringVar(&csr.ChainId, "chain-id", "", "ChainId where CA can be used")
+	cmd.PersistentFlags().StringVar(&qscSubject.ChainId, "chain-id", "", "ChainId where CA can be used")
 	cmd.PersistentFlags().StringVar(&publicKeyFile, "in-public-key", "key.pub", "public key filename")
 	cmd.PersistentFlags().StringVar(&csrFile, "out-sign-req", "root.csr", "certificate signing request filename")
 
@@ -126,7 +126,7 @@ func QCPReqCmd() *cobra.Command {
 
 	cmd.Flags().BoolVar(&csr.IsCa, "is-ca", false, "Is it root certificate")
 	cmd.PersistentFlags().StringVar(&qcpSubject.QCPChain, "qcp-chain", "", "QCP ChainId")
-	cmd.PersistentFlags().StringVar(&csr.ChainId, "chain-id", "", "ChainId where CA can be used")
+	cmd.PersistentFlags().StringVar(&qcpSubject.ChainId, "chain-id", "", "ChainId where CA can be used")
 	cmd.PersistentFlags().StringVar(&publicKeyFile, "in-public-key", "key.pub", "public key filename")
 	cmd.PersistentFlags().StringVar(&csrFile, "out-sign-req", "root.csr", "certificate signing request filename")
 
