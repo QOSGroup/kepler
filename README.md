@@ -48,22 +48,23 @@ kepler show
 
 ```
 kepler genkey --out-private-key qsc.pri --out-public-key qsc.pub $VERBOSE
-kepler req --in-public-key qsc.pub --cn QSC --out-sign-req qsc.csr
+kepler genkey --out-private-key banker.pri --out-public-key banker.pub $VERBOSE
+kepler req-qsc --in-public-key qsc.pub --chain-id qos-test --name qstars --banker banker.pub --out-sign-req qsc.csr
 kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req qsc.csr --out-signed-ca qsc.crt
 
 kepler verify --in-signed-ca qsc.crt
 kepler show --in-csr-file qsc.csr --in-crt-file qsc.crt
 ```
 
-### BANKER
+### QCP
 
 ```
-kepler genkey --out-private-key banker.pri --out-public-key banker.pub $VERBOSE
-kepler req --in-public-key banker.pub --cn QSC --is-banker true --out-sign-req banker.csr
-kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req banker.csr --out-signed-ca banker.crt
+kepler genkey --out-private-key qcp.pri --out-public-key qcp.pub $VERBOSE
+kepler req-qcp --in-public-key qcp.pub --chain-id qos-test --qcp-chain qstars-test --out-sign-req qcp.csr
+kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req qcp.csr --out-signed-ca qcp.crt
 
-kepler verify --in-signed-ca banker.crt
-kepler show --in-csr-file banker.csr --in-crt-file banker.crt
+kepler verify --in-signed-ca qcp.crt
+kepler show --in-csr-file qcp.csr --in-crt-file qcp.crt
 ```
 
 ### REPLAY
