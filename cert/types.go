@@ -54,3 +54,23 @@ func (crt Certificate) PublicKey() crypto.PubKey {
 type TrustCrts struct {
 	PublicKeys []crypto.PubKey `json:"public_keys"`
 }
+
+func VerityCrt(caPublicKeys []crypto.PubKey, crt Certificate) bool {
+	ok := false
+
+	// Check issuer
+	for _, value := range caPublicKeys {
+		if value.Equals(crt.CA.PublicKey) {
+			ok = crt.CA.PublicKey.VerifyBytes(cdc.MustMarshalBinaryBare(crt.CSR), crt.Signature)
+			break
+		}
+	}
+
+	// Check timestamp
+	now := time.Now().Unix()
+	if now <= crt.CSR.NotBefore.Unix() || now >= crt.CSR.NotAfter.Unix() {
+		ok = false
+	}
+
+	return ok
+}
