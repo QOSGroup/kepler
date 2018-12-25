@@ -2,7 +2,6 @@ package cert
 
 import (
 	"github.com/tendermint/tendermint/crypto"
-	"github.com/tendermint/tendermint/types"
 	"time"
 )
 
@@ -13,6 +12,21 @@ const (
 )
 
 type Subject interface{}
+
+type CommonSubject struct {
+	CN string `json:"cn"`
+}
+
+type QSCSubject struct {
+	ChainId string        `json:"chain_id"`
+	Name    string        `json:"name"`
+	Banker  crypto.PubKey `json:"banker"`
+}
+
+type QCPSubject struct {
+	ChainId  string `json:"chain_id"`
+	QCPChain string `json:"qcp_chain"`
+}
 
 type CertificateSigningRequest struct {
 	Subj      Subject       `json:"subj"`
@@ -25,10 +39,6 @@ type CertificateSigningRequest struct {
 type Issuer struct {
 	Subj      Subject       `json:"subj"`
 	PublicKey crypto.PubKey `json:"public_key"`
-}
-
-type CommonSubject struct {
-	CN string `json:"cn"`
 }
 
 type Certificate struct {
@@ -45,57 +55,22 @@ type TrustCrts struct {
 	PublicKeys []crypto.PubKey `json:"public_keys"`
 }
 
-// QSC CA
-//-----------------------------------------------------
+func VerityCrt(caPublicKeys []crypto.PubKey, crt Certificate) bool {
+	ok := false
 
-type QSCSubject struct {
-	ChainId string        `json:"chain_id"`
-	Name    string        `json:"name"`
-	Banker  crypto.PubKey `json:"banker"`
-}
+	// Check issuer
+	for _, value := range caPublicKeys {
+		if value.Equals(crt.CA.PublicKey) {
+			ok = crt.CA.PublicKey.VerifyBytes(cdc.MustMarshalBinaryBare(crt.CSR), crt.Signature)
+			break
+		}
+	}
 
-type QSCCertificate struct {
-	*Certificate
-}
+	// Check timestamp
+	now := time.Now().Unix()
+	if now <= crt.CSR.NotBefore.Unix() || now >= crt.CSR.NotAfter.Unix() {
+		ok = false
+	}
 
-func (crt QSCCertificate) QSCName() string {
-	subj := crt.CSR.Subj.(QSCSubject)
-	return subj.Name
-}
-
-func (crt QSCCertificate) HasBanker() bool {
-	subj := crt.CSR.Subj.(QSCSubject)
-	return subj.Banker != nil
-}
-
-func (crt QSCCertificate) Banker() types.Address {
-	subj := crt.CSR.Subj.(QSCSubject)
-	return subj.Banker.Address()
-}
-
-func (crt QSCCertificate) ChainId() string {
-	subj := crt.CSR.Subj.(QSCSubject)
-	return subj.ChainId
-}
-
-// QCP CA
-//-----------------------------------------------------
-
-type QCPSubject struct {
-	ChainId  string `json:"chain_id"`
-	QCPChain string `json:"qcp_chain"`
-}
-
-type QCPCertificate struct {
-	*Certificate
-}
-
-func (crt QCPCertificate) QCPChain() string {
-	subj := crt.CSR.Subj.(QCPSubject)
-	return subj.QCPChain
-}
-
-func (crt QCPCertificate) ChainId() string {
-	subj := crt.CSR.Subj.(QCPSubject)
-	return subj.ChainId
+	return ok
 }
