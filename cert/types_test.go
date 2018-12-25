@@ -11,10 +11,10 @@ func TestGetQscName(t *testing.T) {
 	csr := CertificateSigningRequest{}
 	csr.Subj = QSCSubject{Name: "QOSC1"}
 
-	crt := QSCCertificate{}
+	crt := Certificate{}
 	crt.CSR = csr
 
-	assert.Equal(t, "QOSC1", crt.QSCName())
+	assert.Equal(t, "QOSC1", crt.CSR.Subj.(QSCSubject).Name)
 }
 
 func TestGetPublicKey(t *testing.T) {
