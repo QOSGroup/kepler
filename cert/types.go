@@ -61,7 +61,7 @@ func VerityCrt(caPublicKeys []crypto.PubKey, crt Certificate) bool {
 	// Check issuer
 	for _, value := range caPublicKeys {
 		if value.Equals(crt.CA.PublicKey) {
-			ok = crt.CA.PublicKey.VerifyBytes(cdc.MustMarshalBinaryBare(crt.CSR), crt.Signature)
+			ok = crt.CA.PublicKey.VerifyBytes(MustMarshalJson(crt.CSR), crt.Signature)
 			break
 		}
 	}

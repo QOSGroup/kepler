@@ -5,11 +5,19 @@ import (
 	"github.com/tendermint/tendermint/crypto/encoding/amino"
 )
 
-var cdc = amino.NewCodec()
+var Codec = amino.NewCodec()
 
 func init() {
-	cryptoAmino.RegisterAmino(cdc)
-	RegisterCodec(cdc)
+	cryptoAmino.RegisterAmino(Codec)
+	RegisterCodec(Codec)
+}
+
+func MustMarshalJson(obj interface{}) []byte {
+	bz, err := Codec.MarshalJSON(obj)
+	if err != nil {
+		panic(err)
+	}
+	return bz
 }
 
 func RegisterCodec(cdc *amino.Codec) {

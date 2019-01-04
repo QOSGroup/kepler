@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	version = "0.4.1"
+	version = "0.5.0"
 )
 
 var VersionCmd = &cobra.Command{
@@ -16,8 +16,4 @@ var VersionCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(version)
 	},
-}
-
-func init() {
-	RootCmd.AddCommand(VersionCmd)
 }
