@@ -24,7 +24,7 @@ func mint(cmd *cobra.Command, args []string) {
 
 	min_address := "00000000d697a7be725d9b262917bc6844cc5211"
 
-	for a := 0; a < 10000000000; a++ {
+	for a := 0; a < 10000; a++ {
 		privKey := ed25519.GenPrivKey()
 		pubKey := privKey.PubKey()
 		address := hex.EncodeToString(pubKey.Address())
