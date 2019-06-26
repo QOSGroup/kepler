@@ -38,5 +38,5 @@ func init() {
 	rootCmd.AddCommand(TrustCmd(cert.Codec))
 	rootCmd.AddCommand(VerifyCmd(cert.Codec))
 	rootCmd.AddCommand(VersionCmd)
-
+	rootCmd.AddCommand(ServerCmd)
 }
