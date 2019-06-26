@@ -29,7 +29,7 @@ Another certificate format `BCM`, similar to `PEM` OR `DER`
 
 ## Usage
 
-First you need to create the root certificate, then the union chain certificate, and finally optionally the banker and replay
+First you need to create the root certificate, then the union chain certificate, and finally optionally the banker and relay
 
 ### ROOT
 
@@ -47,9 +47,9 @@ kepler show
 ### QSC
 
 ```
-kepler genkey --out-private-key qsc.pri --out-public-key qsc.pub $VERBOSE
-kepler genkey --out-private-key banker.pri --out-public-key banker.pub $VERBOSE
-kepler req-qsc --in-public-key qsc.pub --chain-id qos-test --name qstars --banker banker.pub --out-sign-req qsc.csr
+kepler genkey --out-private-key qsc.pri --out-public-key qsc.pub
+kepler genkey --out-private-key banker.pri --out-public-key banker.pub
+kepler req-qsc --in-public-key qsc.pub --chain-id qos-test --name qstars-test --banker banker.pub --out-sign-req qsc.csr
 kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req qsc.csr --out-signed-ca qsc.crt
 
 kepler verify --in-signed-ca qsc.crt
@@ -59,7 +59,7 @@ kepler show --in-csr-file qsc.csr --in-crt-file qsc.crt
 ### QCP
 
 ```
-kepler genkey --out-private-key qcp.pri --out-public-key qcp.pub $VERBOSE
+kepler genkey --out-private-key qcp.pri --out-public-key qcp.pub
 kepler req-qcp --in-public-key qcp.pub --chain-id qos-test --qcp-chain qstars-test --out-sign-req qcp.csr
 kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req qcp.csr --out-signed-ca qcp.crt
 
@@ -67,10 +67,10 @@ kepler verify --in-signed-ca qcp.crt
 kepler show --in-csr-file qcp.csr --in-crt-file qcp.crt
 ```
 
-### REPLAY
+### RELAY
 
 ```
-kepler genkey --out-private-key relay.pri --out-public-key relay.pub $VERBOSE
+kepler genkey --out-private-key relay.pri --out-public-key relay.pub
 kepler req --in-public-key relay.pub --cn QSC_RELAY --out-sign-req relay.csr
 kepler sign  --in-key-pri root.pri --in-key-pub root.pub --in-sign-req relay.csr --out-signed-ca relay.crt
 
