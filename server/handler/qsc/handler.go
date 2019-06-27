@@ -11,6 +11,7 @@ import (
 	"github.com/tendermint/tendermint/crypto"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -28,6 +29,20 @@ func Register(r *gin.Engine) {
 	r.GET("/qsc/ca/:id", getCa())
 }
 
+// @Tags qsc
+// @Summary 联盟币证书申请
+// @Description 联盟币证书申请
+// @Accept  json
+// @Produce  json
+// @Param qscName query string true "联盟币名称"
+// @Param qosChainId query string true "公链ChainId"
+// @Param qscPub query string true "QSC公钥"
+// @Param bankerPub query string true "用于接收联盟币的账户公钥"
+// @Param phone query string true "手机号" minlength(11)
+// @Param email query string true "邮箱"
+// @Param info query string true "申请说明"
+// @Success 200 {integer} int
+// @Router /qsc/apply [post]
 func addApply() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var apply module.ApplyQsc
@@ -35,6 +50,9 @@ func addApply() gin.HandlerFunc {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
+
+		// Upper case for QSC name
+		apply.QscName = strings.ToUpper(apply.QscName)
 
 		if ca, err := rootService.Get(module.RootCa{ChainId: apply.QosChainId, Type: module.ROOT}); ca.Id == 0 || err != nil {
 			c.JSON(http.StatusOK, types.Error(fmt.Sprintf("no %s public chain", apply.QosChainId)))
@@ -55,7 +73,7 @@ func addApply() gin.HandlerFunc {
 		var pubKey crypto.PubKey
 		err := cert.Codec.UnmarshalJSON([]byte(apply.QscPub), &pubKey)
 		if err != nil {
-			c.JSON(http.StatusOK, types.Error("qsc_pub incorrect"))
+			c.JSON(http.StatusOK, types.Error("qscPub incorrect"))
 			return
 		}
 
@@ -63,7 +81,7 @@ func addApply() gin.HandlerFunc {
 		if len(apply.BankerPub) != 0 {
 			err = cert.Codec.UnmarshalJSON([]byte(apply.BankerPub), &pubKey)
 			if err != nil {
-				c.JSON(http.StatusOK, types.Error("banker_pub incorrect"))
+				c.JSON(http.StatusOK, types.Error("bankerPub incorrect"))
 				return
 			}
 		}
@@ -71,22 +89,24 @@ func addApply() gin.HandlerFunc {
 		apply.CreateTime = time.Now()
 		apply.UpdateTime = time.Now()
 		res, err := applyService.Add(apply)
-		if err != nil {
+		if res != 1 && err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
-
-		a, err := applyService.Get(module.ApplyQsc{QosChainId: apply.QosChainId, QscName: apply.QscName, Email: apply.Email})
-		if err != nil {
-			c.JSON(http.StatusOK, types.Error(err))
-			return
-		}
-		res, err = addCa(*a)
 
 		c.JSON(http.StatusOK, types.Ok(res))
 	}
 }
 
+// @Tags qsc
+// @Summary 联盟链申请查询
+// @Description 联盟链申请查询
+// @Accept  json
+// @Produce  json
+// @Param phone query string true "手机号" minlength(11)
+// @Param email query string true "邮箱"
+// @Success 200 {object} module.ApplyQsc
+// @Router /qsc/apply [get]
 func queryApply() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		apply := module.ApplyQsc{Email: c.DefaultQuery("email", ""), Phone: c.DefaultQuery("phone", "")}
@@ -117,6 +137,15 @@ func getApply() gin.HandlerFunc {
 	}
 }
 
+// @Tags qsc
+// @Summary 申请审核
+// @Description 申请审核
+// @Accept  json
+// @Produce  json
+// @Param id query int true "申请ID" mininum(1)
+// @Param status query int true "状态 1发放证书 2申请无效" mininum(1)
+// @Success 200 {integer} int
+// @Router /qsc/apply/{id} [put]
 func updateApply() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var query module.ApplyQsc
@@ -126,6 +155,17 @@ func updateApply() gin.HandlerFunc {
 		}
 		res, err := applyService.Update(query)
 		if res != 1 && err != nil {
+			c.JSON(http.StatusOK, types.Error(err))
+			return
+		}
+		apply, err := applyService.Get(query)
+		if err != nil {
+			c.JSON(http.StatusOK, types.Error(err))
+			return
+		}
+
+		res, err = addCa(*apply)
+		if err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}

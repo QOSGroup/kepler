@@ -21,7 +21,7 @@ func (service *ApplyQcpService) Get(apply module.ApplyQcp) (*module.ApplyQcp, er
 }
 
 func (service *ApplyQcpService) Find(apply module.ApplyQcp, page types.Page) (cas []*module.ApplyQcp, err error) {
-	err = module.KEngine.OrderBy("id desc").Limit(page.Limit(), page.Start()).Find(&cas, &apply)
+	err = module.KEngine.OrderBy("id desc").Limit(page.Limit(), page.Offset()).Find(&cas, &apply)
 	return
 }
 

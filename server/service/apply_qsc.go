@@ -21,7 +21,7 @@ func (service *ApplyQscService) Get(apply module.ApplyQsc) (*module.ApplyQsc, er
 }
 
 func (service *ApplyQscService) Find(apply module.ApplyQsc, page types.Page) (cas []*module.ApplyQsc, err error) {
-	err = module.KEngine.OrderBy("id desc").Limit(page.Limit(), page.Start()).Find(&cas, &apply)
+	err = module.KEngine.OrderBy("id desc").Limit(page.Limit(), page.Offset()).Find(&cas, &apply)
 	return
 }
 

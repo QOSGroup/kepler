@@ -1,0 +1,297 @@
+basePath: /
+definitions:
+  module.ApplyQcp:
+    properties:
+      createTime:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      info:
+        type: string
+      note:
+        type: string
+      phone:
+        type: string
+      qcpChainId:
+        type: string
+      qcpPub:
+        type: string
+      qosChainId:
+        type: string
+      status:
+        type: integer
+      updateTime:
+        type: string
+    type: object
+  module.ApplyQsc:
+    properties:
+      bankerPub:
+        type: string
+      createTime:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      info:
+        type: string
+      note:
+        type: string
+      phone:
+        type: string
+      qosChainId:
+        type: string
+      qscName:
+        type: string
+      qscPub:
+        type: string
+      status:
+        type: integer
+      updateTime:
+        type: string
+    type: object
+  types.Result:
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+      message:
+        type: string
+    type: object
+host: 127.0.0.1:8080
+info:
+  contact: {}
+  description: Kepler server.
+  license: {}
+  title: Kepler API
+  version: v0.6.0
+paths:
+  /key/gen:
+    get:
+      consumes:
+      - application/json
+      description: 公私钥生成，服务端不保存
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+            type: object
+      summary: 公私钥生成
+      tags:
+      - key
+  /qcp/apply:
+    get:
+      consumes:
+      - application/json
+      description: 联盟链申请查询
+      parameters:
+      - description: 手机号
+        in: query
+        minLength: 11
+        name: phone
+        required: true
+        type: string
+      - description: 邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/module.ApplyQcp'
+            type: object
+      summary: 联盟链申请查询
+      tags:
+      - qcp
+    post:
+      consumes:
+      - application/json
+      description: 联盟链证书申请
+      parameters:
+      - description: 联盟链ChainId
+        in: query
+        name: qcpChainId
+        required: true
+        type: string
+      - description: 公链ChainId
+        in: query
+        name: qosChainId
+        required: true
+        type: string
+      - description: QCP公钥
+        in: query
+        name: qcpPub
+        required: true
+        type: string
+      - description: 手机号
+        in: query
+        minLength: 11
+        name: phone
+        required: true
+        type: string
+      - description: 邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+      - description: 申请说明
+        in: query
+        name: info
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: 联盟链证书申请
+      tags:
+      - qcp
+  /qcp/apply/{id}:
+    put:
+      consumes:
+      - application/json
+      description: 申请审核
+      parameters:
+      - description: 申请ID
+        in: query
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 状态 1发放证书 2申请无效
+        in: query
+        minimum: 1
+        name: status
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: 申请审核
+      tags:
+      - qcp
+  /qsc/apply:
+    get:
+      consumes:
+      - application/json
+      description: 联盟链申请查询
+      parameters:
+      - description: 手机号
+        in: query
+        minLength: 11
+        name: phone
+        required: true
+        type: string
+      - description: 邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/module.ApplyQsc'
+            type: object
+      summary: 联盟链申请查询
+      tags:
+      - qsc
+    post:
+      consumes:
+      - application/json
+      description: 联盟币证书申请
+      parameters:
+      - description: 联盟币名称
+        in: query
+        name: qscName
+        required: true
+        type: string
+      - description: 公链ChainId
+        in: query
+        name: qosChainId
+        required: true
+        type: string
+      - description: QSC公钥
+        in: query
+        name: qscPub
+        required: true
+        type: string
+      - description: 用于接收联盟币的账户公钥
+        in: query
+        name: bankerPub
+        required: true
+        type: string
+      - description: 手机号
+        in: query
+        minLength: 11
+        name: phone
+        required: true
+        type: string
+      - description: 邮箱
+        in: query
+        name: email
+        required: true
+        type: string
+      - description: 申请说明
+        in: query
+        name: info
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: 联盟币证书申请
+      tags:
+      - qsc
+  /qsc/apply/{id}:
+    put:
+      consumes:
+      - application/json
+      description: 申请审核
+      parameters:
+      - description: 申请ID
+        in: query
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 状态 1发放证书 2申请无效
+        in: query
+        minimum: 1
+        name: status
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+      summary: 申请审核
+      tags:
+      - qsc
+swagger: "2.0"

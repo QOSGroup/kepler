@@ -10,8 +10,8 @@ type KeyValue struct {
 }
 
 type KeyData struct {
-	PrivKey KeyValue `json:"priv_key"`
-	PubKey  KeyValue `json:"pub_key"`
+	PrivKey KeyValue `json:"privKey"`
+	PubKey  KeyValue `json:"pubKey"`
 }
 
 func NewKeyData(privAminoJson []byte, pubAminoJson []byte) *KeyData {
