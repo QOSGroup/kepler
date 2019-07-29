@@ -24,8 +24,8 @@ func (service *CaQscService) FindAll() (cas []*module.CaQsc, err error) {
 	return
 }
 
-func (service *CaQscService) Update(ca module.CaQsc) (cnt int64, err error) {
-	cnt, err = module.KEngine.Update(&ca)
+func (service *CaQscService) UpdateById(ca module.CaQsc) (cnt int64, err error) {
+	cnt, err = module.KEngine.Update(&ca, &module.CaQsc{Id: ca.Id})
 	return
 }
 

@@ -139,7 +139,7 @@ func updateApply() gin.HandlerFunc {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
-		res, err := applyService.Update(query)
+		res, err := applyService.UpdateById(query)
 		if res != 1 && err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
