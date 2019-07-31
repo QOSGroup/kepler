@@ -11,3 +11,4 @@ qoscli keys业务完整性的用例测试库, 包含以下部分:
 * `qoscli keys delete` 从密钥库删除密钥
 * `qoscli keys import` 导入密钥
 * `qoscli keys export` 导出密钥
+* `qoscli query account`查询账号信息
