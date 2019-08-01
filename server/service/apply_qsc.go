@@ -21,7 +21,7 @@ func (service *ApplyQscService) Get(apply module.ApplyQsc) (*module.ApplyQsc, er
 }
 
 func (service *ApplyQscService) Find(apply module.ApplyQsc, page types.Page) (cas []*module.ApplyQsc, err error) {
-	err = module.KEngine.OrderBy("id desc").Limit(page.Limit(), page.Start()).Find(&cas, &apply)
+	err = module.KEngine.OrderBy("id desc").Limit(page.Limit(), page.Offset()).Find(&cas, &apply)
 	return
 }
 
@@ -30,8 +30,8 @@ func (service *ApplyQscService) FindAll() (cas []*module.ApplyQsc, err error) {
 	return
 }
 
-func (service *ApplyQscService) Update(apply module.ApplyQsc) (cnt int64, err error) {
-	cnt, err = module.KEngine.Update(&apply)
+func (service *ApplyQscService) UpdateById(apply module.ApplyQsc) (cnt int64, err error) {
+	cnt, err = module.KEngine.Update(&apply, &module.ApplyQsc{Id: apply.Id})
 	return
 }
 

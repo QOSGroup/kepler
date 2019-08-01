@@ -1,19 +1,19 @@
 package types
 
 type Result struct {
-	Code int         `json:"code"`
-	Msg  string      `json:"msg"`
-	Data interface{} `json:"data"`
+	Code    int         `json:"code"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data"`
 }
 
 func Ok(data interface{}) *Result {
-	return &Result{Code: 0, Data: data, Msg: "success"}
+	return &Result{Code: 0, Data: data, Message: "success"}
 }
 
 func OkWithMsg(data interface{}, msg string) *Result {
-	return &Result{Code: 0, Data: data, Msg: msg}
+	return &Result{Code: 0, Data: data, Message: msg}
 }
 
 func Error(data interface{}) *Result {
-	return &Result{Code: -1, Data: data, Msg: "error"}
+	return &Result{Code: -1, Data: data, Message: "error"}
 }

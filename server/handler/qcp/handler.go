@@ -28,6 +28,19 @@ func Register(r *gin.Engine) {
 	r.GET("/qcp/ca/:id", getCa())
 }
 
+// @Tags qcp
+// @Summary 联盟链证书申请
+// @Description 联盟链证书申请
+// @Accept  json
+// @Produce  json
+// @Param qcpChainId query string true "联盟链ChainId"
+// @Param qosChainId query string true "公链ChainId"
+// @Param qcpPub query string true "QCP公钥"
+// @Param phone query string true "手机号" minlength(11)
+// @Param email query string true "邮箱"
+// @Param info query string true "申请说明"
+// @Success 200 {integer} int
+// @Router /qcp/apply [post]
 func addApply() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var apply module.ApplyQcp
@@ -55,7 +68,7 @@ func addApply() gin.HandlerFunc {
 		var pubKey crypto.PubKey
 		err := cert.Codec.UnmarshalJSON([]byte(apply.QcpPub), &pubKey)
 		if err != nil {
-			c.JSON(http.StatusOK, types.Error("qcp_pub incorrect"))
+			c.JSON(http.StatusOK, types.Error("qcpPub incorrect"))
 			return
 		}
 
@@ -66,10 +79,20 @@ func addApply() gin.HandlerFunc {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
+
 		c.JSON(http.StatusOK, types.Ok(res))
 	}
 }
 
+// @Tags qcp
+// @Summary 联盟链申请查询
+// @Description 联盟链申请查询
+// @Accept  json
+// @Produce  json
+// @Param phone query string true "手机号" minlength(11)
+// @Param email query string true "邮箱"
+// @Success 200 {object} module.ApplyQcp
+// @Router /qcp/apply [get]
 func queryApply() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		apply := module.ApplyQcp{Email: c.DefaultQuery("email", ""), Phone: c.DefaultQuery("phone", "")}
@@ -100,6 +123,15 @@ func getApply() gin.HandlerFunc {
 	}
 }
 
+// @Tags qcp
+// @Summary 申请审核
+// @Description 申请审核
+// @Accept  json
+// @Produce  json
+// @Param id query int true "申请ID" mininum(1)
+// @Param status query int true "状态 1发放证书 2申请无效" mininum(1)
+// @Success 200 {integer} int
+// @Router /qcp/apply/{id} [put]
 func updateApply() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var query module.ApplyQcp
@@ -107,7 +139,7 @@ func updateApply() gin.HandlerFunc {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
-		res, err := applyService.Update(query)
+		res, err := applyService.UpdateById(query)
 		if res != 1 && err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
 			return

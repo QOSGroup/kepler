@@ -1,17 +1,17 @@
 package types
 
 const (
-	pageNo   int = 1
-	pageSize int = 20
+	offset int = 1
+	limit  int = 20
 )
 
 type Page struct {
-	PageNo   int `json:"page_no" form:"page_no"`
-	PageSize int `json:"page_size form:"page_size""`
+	PageNo   int `json:"page_no" form:"offset"`
+	PageSize int `json:"page_size form:"limit""`
 }
 
 func DefaultPage() *Page {
-	return &Page{pageNo, pageSize}
+	return &Page{offset, limit}
 }
 
 func checkAndFillPage(page *Page) *Page {
@@ -19,15 +19,15 @@ func checkAndFillPage(page *Page) *Page {
 		return DefaultPage()
 	}
 	if page.PageNo <= 0 {
-		page.PageNo = pageNo
+		page.PageNo = offset
 	}
 	if page.PageSize <= 0 {
-		page.PageSize = pageSize
+		page.PageSize = limit
 	}
 	return page
 }
 
-func (page *Page) Start() int {
+func (page *Page) Offset() int {
 	safePage := checkAndFillPage(page)
 	return (safePage.PageNo - 1) * safePage.PageSize
 }
