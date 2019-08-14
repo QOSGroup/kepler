@@ -31,7 +31,7 @@ func (service *ApplyQcpService) FindAll() (cas []*module.ApplyQcp, err error) {
 }
 
 func (service *ApplyQcpService) UpdateById(apply module.ApplyQcp) (cnt int64, err error) {
-	cnt, err = module.KEngine.Update(&apply, &module.ApplyQcp{Id: apply.Id})
+	cnt, err = module.KEngine.Update(&apply, &module.ApplyQcp{Id: apply.Id, Status: module.READY})
 	return
 }
 
