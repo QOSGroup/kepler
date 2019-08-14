@@ -31,7 +31,7 @@ func (service *ApplyQscService) FindAll() (cas []*module.ApplyQsc, err error) {
 }
 
 func (service *ApplyQscService) UpdateById(apply module.ApplyQsc) (cnt int64, err error) {
-	cnt, err = module.KEngine.Update(&apply, &module.ApplyQsc{Id: apply.Id})
+	cnt, err = module.KEngine.Update(&apply, &module.ApplyQsc{Id: apply.Id, Status: module.READY})
 	return
 }
 
