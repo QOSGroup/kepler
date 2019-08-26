@@ -3,7 +3,7 @@ package module
 import "time"
 
 type ApplyQsc struct {
-	Id         int64
+	Id         int64     `json:"id" form:"id"`
 	QscName    string    `xorm:"Varchar(50)" json:"qscName" form:"qscName"`
 	QosChainId string    `xorm:"Varchar(50)" json:"qosChainId" form:"qosChainId"`
 	QscPub     string    `xorm:"Varchar(100)" json:"qscPub" form:"qscPub"`

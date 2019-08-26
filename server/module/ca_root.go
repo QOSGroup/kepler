@@ -9,7 +9,7 @@ const (
 )
 
 type RootCa struct {
-	Id         int64
+	Id         int64  `json:"id" form:"id"`
 	ChainId    string `xorm:"Varchar(50)"`
 	PrivKey    string `xorm:"Varchar(150)"`
 	PubKey     string `xorm:"Varchar(100)"`

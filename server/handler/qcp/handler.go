@@ -139,21 +139,32 @@ func updateApply() gin.HandlerFunc {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
+		if query.Status != module.REJECTED && query.Status != module.CONFIRM {
+			c.JSON(http.StatusOK, types.Error("not support status"))
+			return
+		}
+		apply, err := applyService.Get(module.ApplyQcp{Id: query.Id})
+		if err != nil || apply.Status != module.READY {
+			c.JSON(http.StatusOK, types.Error("no apply or status cannot be changed"))
+			return
+		}
 		res, err := applyService.UpdateById(query)
 		if res != 1 && err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
-		apply, err := applyService.Get(query)
+		apply, err = applyService.Get(query)
 		if err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
 
-		res, err = addCa(*apply)
-		if err != nil {
-			c.JSON(http.StatusOK, types.Error(err))
-			return
+		if apply.Status == module.CONFIRM {
+			res, err = addCa(*apply)
+			if err != nil {
+				c.JSON(http.StatusOK, types.Error(err))
+				return
+			}
 		}
 		c.JSON(http.StatusOK, types.Ok(res))
 	}

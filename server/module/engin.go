@@ -12,6 +12,7 @@ func init() {
 	dbConfig := config.DefaultDbConfig()
 	var err error
 	KEngine, err = xorm.NewEngine(dbConfig.Driver, dbConfig.DateSource())
+	KEngine.ShowSQL(true)
 	if err != nil {
 		panic(err)
 	}
