@@ -26,7 +26,7 @@ func Register(r *gin.Engine) {
 	r.GET("/qcp/apply/:id", getApply())
 	r.PUT("/qcp/apply/:id", updateApply())
 	r.GET("/qcp/ca", findCa())
-	r.GET("/qcp/ca/:id", getCa())
+	r.GET("/qcp/ca/:applyId", getCa())
 }
 
 // @Tags qcp
@@ -217,11 +217,11 @@ func findCa() gin.HandlerFunc {
 
 func getCa() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+		id, err := strconv.ParseInt(c.Param("applyId"), 10, 64)
 		if err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
 		}
-		ca := module.CaQcp{Id: id}
+		ca := module.CaQcp{ApplyId: id}
 		res, err := caService.Get(ca)
 		if err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
