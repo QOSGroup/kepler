@@ -2,6 +2,10 @@ package qcp
 
 import (
 	"fmt"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/QOSGroup/kepler/cert"
 	"github.com/QOSGroup/kepler/server/mail"
 	"github.com/QOSGroup/kepler/server/module"
@@ -9,9 +13,6 @@ import (
 	"github.com/QOSGroup/kepler/server/types"
 	"github.com/gin-gonic/gin"
 	"github.com/tendermint/tendermint/crypto"
-	"net/http"
-	"strconv"
-	"time"
 )
 
 var applyService = service.ApplyQcpService{}
@@ -74,13 +75,12 @@ func addApply() gin.HandlerFunc {
 
 		apply.CreateTime = time.Now()
 		apply.UpdateTime = time.Now()
-		res, err := applyService.Add(apply)
+		res, err := applyService.Add(&apply)
 		if res != 1 && err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
-
-		c.JSON(http.StatusOK, types.Ok(res))
+		c.JSON(http.StatusOK, types.Ok(apply))
 	}
 }
 

@@ -7,8 +7,8 @@ import (
 
 type ApplyQcpService struct{}
 
-func (service *ApplyQcpService) Add(apply module.ApplyQcp) (cnt int64, err error) {
-	cnt, err = module.KEngine.InsertOne(&apply)
+func (service *ApplyQcpService) Add(apply *module.ApplyQcp) (cnt int64, err error) {
+	cnt, err = module.KEngine.Insert(apply)
 	return
 }
 
