@@ -3,7 +3,7 @@ package module
 import "time"
 
 type ApplyQcp struct {
-	Id         int64     `json:"id" form:"id"`
+	Id         int64     `xorm:"'id' pk autoincr" json:"id" form:"id"`
 	QcpChainId string    `xorm:"Varchar(50)" json:"qcpChainId" form:"qcpChainId"`
 	QosChainId string    `xorm:"Varchar(50)" json:"qosChainId" form:"qosChainId"`
 	QcpPub     string    `xorm:"Varchar(100)" json:"qcpPub" form:"qcpPub"`

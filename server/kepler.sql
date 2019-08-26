@@ -40,6 +40,7 @@ CREATE TABLE `ca_qcp` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `apply_id` int(11) NOT NULL COMMENT '申请记录ID',
   `expire_time` datetime NOT NULL COMMENT '失效时间',
+  `download` int(1) NOT NULL DEFAULT '0' COMMENT '证书通过API下载次数',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ca_qcp_qos_chain_id_IDX` (`qos_chain_id`,`qcp_chain_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='联盟链证书';
