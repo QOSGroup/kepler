@@ -144,12 +144,13 @@ func updateApply() gin.HandlerFunc {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
+		fmt.Println("update apply res: ", res, " query", query)
 		apply, err := applyService.Get(query)
 		if err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
-
+		fmt.Println("update apply: ", apply)
 		res, err = addCa(*apply)
 		if err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
@@ -222,6 +223,14 @@ func getCa() gin.HandlerFunc {
 			c.JSON(http.StatusOK, types.Error(err))
 		}
 		ca := module.CaQcp{ApplyId: id}
+		err = caService.CheckAndUpdateDownload(ca)
+		if err != nil {
+			fmt.Println(fmt.Sprintf(
+				"update column download error: %v", err))
+			c.JSON(http.StatusOK,
+				types.Error("Certificate can not be downloaded"))
+			return
+		}
 		res, err := caService.Get(ca)
 		if err != nil {
 			c.JSON(http.StatusOK, types.Error(err))
