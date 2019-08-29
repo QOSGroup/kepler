@@ -4,7 +4,10 @@
         "description": "Kepler server.",
         "title": "Kepler API",
         "contact": {},
-        "license": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
         "version": "v0.6.0"
     },
     "host": "127.0.0.1:8080",
@@ -160,7 +163,7 @@
                         "type": "integer",
                         "description": "申请ID",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     },
                     {
@@ -315,7 +318,7 @@
                         "type": "integer",
                         "description": "申请ID",
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     },
                     {

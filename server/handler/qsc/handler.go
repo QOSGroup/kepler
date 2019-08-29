@@ -2,6 +2,11 @@ package qsc
 
 import (
 	"fmt"
+	"net/http"
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/QOSGroup/kepler/cert"
 	"github.com/QOSGroup/kepler/server/mail"
 	"github.com/QOSGroup/kepler/server/module"
@@ -9,10 +14,6 @@ import (
 	"github.com/QOSGroup/kepler/server/types"
 	"github.com/gin-gonic/gin"
 	"github.com/tendermint/tendermint/crypto"
-	"net/http"
-	"strconv"
-	"strings"
-	"time"
 )
 
 var applyService = service.ApplyQscService{}
@@ -142,7 +143,7 @@ func getApply() gin.HandlerFunc {
 // @Description 申请审核
 // @Accept  json
 // @Produce  json
-// @Param id query int true "申请ID" mininum(1)
+// @Param id path int true "申请ID" mininum(1)
 // @Param status query int true "状态 1发放证书 2申请无效" mininum(1)
 // @Success 200 {integer} int
 // @Router /qsc/apply/{id} [put]

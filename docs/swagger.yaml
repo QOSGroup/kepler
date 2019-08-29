@@ -65,7 +65,9 @@ host: 127.0.0.1:8080
 info:
   contact: {}
   description: Kepler server.
-  license: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Kepler API
   version: v0.6.0
 paths:
@@ -166,7 +168,7 @@ paths:
       description: 申请审核
       parameters:
       - description: 申请ID
-        in: query
+        in: path
         minimum: 1
         name: id
         required: true
@@ -273,7 +275,7 @@ paths:
       description: 申请审核
       parameters:
       - description: 申请ID
-        in: query
+        in: path
         minimum: 1
         name: id
         required: true
