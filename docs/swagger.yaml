@@ -165,7 +165,7 @@ paths:
   /qcp/apply/{id}:
     put:
       consumes:
-      - application/json
+      - application/x-www-form-urlencoded
       description: 申请审核
       parameters:
       - description: 申请ID

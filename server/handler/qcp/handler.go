@@ -134,7 +134,7 @@ func getApply() gin.HandlerFunc {
 // @Tags qcp
 // @Summary 申请审核
 // @Description 申请审核
-// @Accept  json
+// @Accept  x-www-form-urlencoded
 // @Produce  json
 // @Param id path int true "申请ID" mininum(1)
 // @Param status query int true "状态 1发放证书 2申请无效" mininum(1)
