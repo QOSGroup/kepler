@@ -117,7 +117,7 @@ paths:
       - qcp
     post:
       consumes:
-      - application/json
+      - application/x-www-form-urlencoded
       description: 联盟链证书申请
       parameters:
       - description: 联盟链ChainId
@@ -157,7 +157,8 @@ paths:
         "200":
           description: OK
           schema:
-            type: integer
+            $ref: '#/definitions/types.Result'
+            type: object
       summary: 联盟链证书申请
       tags:
       - qcp

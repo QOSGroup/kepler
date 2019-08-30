@@ -32,7 +32,7 @@ func Register(r *gin.Engine) {
 // @Tags qcp
 // @Summary 联盟链证书申请
 // @Description 联盟链证书申请
-// @Accept  json
+// @Accept  x-www-form-urlencoded
 // @Produce  json
 // @Param qcpChainId query string true "联盟链ChainId"
 // @Param qosChainId query string true "公链ChainId"
@@ -40,27 +40,33 @@ func Register(r *gin.Engine) {
 // @Param phone query string true "手机号" minlength(11)
 // @Param email query string true "邮箱"
 // @Param info query string true "申请说明"
-// @Success 200 {integer} int
+// @Success 200 {object} types.Result
 // @Router /qcp/apply [post]
 func addApply() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var apply module.ApplyQcp
 		if err := c.ShouldBind(&apply); err != nil {
+			fmt.Println("addApply error: ", err)
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}
 
+		fmt.Println("QCP apply: ", apply.QcpChainId)
+
 		if ca, err := rootService.Get(module.RootCa{ChainId: apply.QosChainId, Type: module.ROOT}); ca.Id == 0 || err != nil {
+			fmt.Println("addApply error: ", err)
 			c.JSON(http.StatusOK, types.Error(fmt.Sprintf("no %s public chain", apply.QosChainId)))
 			return
 		}
 
 		if exists, err := applyService.Exists(apply.QosChainId, apply.QcpChainId, apply.Email); exists || err != nil {
+			fmt.Println("addApply error: ", err)
 			c.JSON(http.StatusOK, types.Error("repeat apply"))
 			return
 		}
 
 		if exists, err := caService.Exists(apply.QosChainId, apply.QcpChainId); exists || err != nil {
+			fmt.Println(err)
 			c.JSON(http.StatusOK, types.Error(fmt.Sprintf("%s in %s has been registered", apply.QcpChainId, apply.QosChainId)))
 			return
 		}
@@ -69,6 +75,7 @@ func addApply() gin.HandlerFunc {
 		var pubKey crypto.PubKey
 		err := cert.Codec.UnmarshalJSON([]byte(apply.QcpPub), &pubKey)
 		if err != nil {
+			fmt.Println(err)
 			c.JSON(http.StatusOK, types.Error("qcpPub incorrect"))
 			return
 		}
@@ -77,6 +84,7 @@ func addApply() gin.HandlerFunc {
 		apply.UpdateTime = time.Now()
 		res, err := applyService.Add(&apply)
 		if res != 1 && err != nil {
+			fmt.Println("res: ", res, "; ", err)
 			c.JSON(http.StatusOK, types.Error(err))
 			return
 		}

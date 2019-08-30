@@ -80,7 +80,7 @@
             "post": {
                 "description": "联盟链证书申请",
                 "consumes": [
-                    "application/json"
+                    "application/x-www-form-urlencoded"
                 ],
                 "produces": [
                     "application/json"
@@ -138,7 +138,8 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "integer"
+                            "type": "object",
+                            "$ref": "#/definitions/types.Result"
                         }
                     }
                 }
