@@ -24,7 +24,7 @@ func Register(r *gin.Engine) {
 	r.POST("/qcp/apply", addApply())
 	r.GET("/qcp/apply", queryApply())
 	r.GET("/qcp/apply/:id", getApply())
-	r.PUT("/qcp/apply/:id", updateApply())
+	r.PUT("/qcp/apply", updateApply())
 	r.GET("/qcp/ca", findCa())
 	r.GET("/qcp/ca/:applyId", getCa())
 }
@@ -136,10 +136,10 @@ func getApply() gin.HandlerFunc {
 // @Description 申请审核
 // @Accept  x-www-form-urlencoded
 // @Produce  json
-// @Param id path int true "申请ID" mininum(1)
+// @Param id query int true "申请ID" mininum(1)
 // @Param status query int true "状态 1发放证书 2申请无效" mininum(1)
-// @Success 200 {integer} int
-// @Router /qcp/apply/{id} [put]
+// @Success 200 {object} types.Result
+// @Router /qcp/apply [put]
 func updateApply() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var query module.ApplyQcp
@@ -153,6 +153,8 @@ func updateApply() gin.HandlerFunc {
 		}
 		apply, err := applyService.Get(module.ApplyQcp{Id: query.Id})
 		if err != nil || apply.Status != module.READY {
+			fmt.Println("issue apply error?: ", err, "; ",
+				apply.Status, "; ", apply.Id, "; query id: ", query.Id)
 			c.JSON(http.StatusOK, types.Error("no apply or status cannot be changed"))
 			return
 		}

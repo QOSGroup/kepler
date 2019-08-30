@@ -77,6 +77,46 @@
                     }
                 }
             },
+            "put": {
+                "description": "申请审核",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "qcp"
+                ],
+                "summary": "申请审核",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "申请ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "状态 1发放证书 2申请无效",
+                        "name": "status",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    }
+                }
+            },
             "post": {
                 "description": "联盟链证书申请",
                 "consumes": [
@@ -140,47 +180,6 @@
                         "schema": {
                             "type": "object",
                             "$ref": "#/definitions/types.Result"
-                        }
-                    }
-                }
-            }
-        },
-        "/qcp/apply/{id}": {
-            "put": {
-                "description": "申请审核",
-                "consumes": [
-                    "application/x-www-form-urlencoded"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "qcp"
-                ],
-                "summary": "申请审核",
-                "parameters": [
-                    {
-                        "minimum": 1,
-                        "type": "integer",
-                        "description": "申请ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "minimum": 1,
-                        "type": "integer",
-                        "description": "状态 1发放证书 2申请无效",
-                        "name": "status",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "integer"
                         }
                     }
                 }

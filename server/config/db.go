@@ -4,7 +4,7 @@ import "fmt"
 
 func DefaultDbConfig() *DbConfig {
 	return &DbConfig{
-		"mysql", "root", "123456", "127.0.0.1", 3306, "kepler",
+		"mysql", "qos_sell", "qos_sell", "192.168.1.235", 3306, "kepler",
 	}
 }
 
