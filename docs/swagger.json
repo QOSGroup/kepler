@@ -185,6 +185,40 @@
                 }
             }
         },
+        "/qcp/ca/{applyId}": {
+            "get": {
+                "description": "获取证书，只能访问一次",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "qcp"
+                ],
+                "summary": "获取证书",
+                "parameters": [
+                    {
+                        "minimum": 1,
+                        "type": "integer",
+                        "description": "申请ID",
+                        "name": "applyId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/types.Result"
+                        }
+                    }
+                }
+            }
+        },
         "/qsc/apply": {
             "get": {
                 "description": "联盟链申请查询",

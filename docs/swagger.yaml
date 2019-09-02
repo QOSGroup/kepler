@@ -190,6 +190,29 @@ paths:
       summary: 申请审核
       tags:
       - qcp
+  /qcp/ca/{applyId}:
+    get:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 获取证书，只能访问一次
+      parameters:
+      - description: 申请ID
+        in: path
+        minimum: 1
+        name: applyId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+            type: object
+      summary: 获取证书
+      tags:
+      - qcp
   /qsc/apply:
     get:
       consumes:

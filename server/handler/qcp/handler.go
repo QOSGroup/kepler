@@ -237,6 +237,14 @@ func findCa() gin.HandlerFunc {
 	}
 }
 
+// @Tags qcp
+// @Summary 获取证书
+// @Description 获取证书，只能访问一次
+// @Accept  x-www-form-urlencoded
+// @Produce  json
+// @Param applyId path int true "申请ID" mininum(1)
+// @Success 200 {object} types.Result
+// @Router /qcp/ca/{applyId} [get]
 func getCa() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id, err := strconv.ParseInt(c.Param("applyId"), 10, 64)
