@@ -117,7 +117,7 @@ paths:
       - qcp
     post:
       consumes:
-      - application/json
+      - application/x-www-form-urlencoded
       description: 联盟链证书申请
       parameters:
       - description: 联盟链ChainId
@@ -157,18 +157,18 @@ paths:
         "200":
           description: OK
           schema:
-            type: integer
+            $ref: '#/definitions/types.Result'
+            type: object
       summary: 联盟链证书申请
       tags:
       - qcp
-  /qcp/apply/{id}:
     put:
       consumes:
-      - application/json
+      - application/x-www-form-urlencoded
       description: 申请审核
       parameters:
       - description: 申请ID
-        in: path
+        in: query
         minimum: 1
         name: id
         required: true
@@ -185,8 +185,32 @@ paths:
         "200":
           description: OK
           schema:
-            type: integer
+            $ref: '#/definitions/types.Result'
+            type: object
       summary: 申请审核
+      tags:
+      - qcp
+  /qcp/ca/{applyId}:
+    get:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 获取证书，只能访问一次
+      parameters:
+      - description: 申请ID
+        in: path
+        minimum: 1
+        name: applyId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.Result'
+            type: object
+      summary: 获取证书
       tags:
       - qcp
   /qsc/apply:
